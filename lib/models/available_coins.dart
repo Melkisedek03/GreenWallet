@@ -4,6 +4,12 @@ import 'package:coinlib_flutter/coinlib_flutter.dart';
 
 import 'coin.dart';
 
+// TODO(GreenWallet): set the real public Electrum hostnames once the NUX
+// electrs endpoints are published. Users can already add custom servers
+// via the in-app server settings in the meantime.
+const nusacoinElectrumHost = 'electrum.nusacoin.example';
+const nusacoinTestnetElectrumHost = 'testnet-electrum.nusacoin.example';
+
 class AvailableCoins {
   static final Map<String, Coin> _availableCoinList = {
     'peercoin': Coin(
@@ -57,6 +63,56 @@ class AvailableCoins {
       marismaServers: [
         ('test-marisma.ppc.lol', 2096),
       ],
+    ),
+    'nusacoin': Coin(
+      name: 'nusacoin',
+      displayName: 'Nusacoin',
+      uriCode: 'nusacoin',
+      letterCode: 'NUX',
+      // TODO(GreenWallet Phase 4): replace with NUX icons (Emerald Deep).
+      iconPath: 'assets/icon/ppc-icon-48.png',
+      iconPathTransparent: 'assets/icon/ppc-icon-white-48.png',
+      networkType: Network.nusacoin,
+      opreturnSize: 80,
+      fractions: 8,
+      // Dust policy: 546 nusan, mirroring the node's dust relay threshold
+      // for P2PKH (NUX uses Bitcoin-identical DUST_RELAY_TX_FEE=3000).
+      minimumTxValue: 546,
+      fixedFee: true,
+      fixedFeePerKb: 0.01,
+      explorerUrl: 'https://explorer.taobot.org',
+      genesisHash:
+          '0000017123d6f996589bc2e58bb5502218012ac7f527ab599a3be84c1951c669',
+      txVersion: 2,
+      electrumRequiredProtocol: 1.4,
+      electrumServers: [
+        'tcp://$nusacoinElectrumHost:50009',
+      ],
+      marismaServers: [],
+    ),
+    'nusacoinTestnet': Coin(
+      name: 'nusacoinTestnet',
+      displayName: 'Nusacoin Testnet',
+      uriCode: 'nusacoin',
+      letterCode: 'tNUX',
+      // TODO(GreenWallet Phase 4): replace with NUX testnet icons.
+      iconPath: 'assets/icon/ppc-icon-48-grey.png',
+      iconPathTransparent: 'assets/icon/ppc-icon-48-grey.png',
+      networkType: Network.nusacoinTestnet,
+      opreturnSize: 80,
+      fractions: 8,
+      minimumTxValue: 546,
+      fixedFee: true,
+      fixedFeePerKb: 0.01,
+      explorerUrl: 'https://explorer.taobot.org',
+      genesisHash:
+          '0000017123d6f996589bc2e58bb5502218012ac7f527ab599a3be84c1951c669',
+      txVersion: 2,
+      electrumRequiredProtocol: 1.4,
+      electrumServers: [
+        'tcp://$nusacoinTestnetElectrumHost:60009',
+      ],
+      marismaServers: [],
     ),
   };
 

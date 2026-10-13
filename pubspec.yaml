@@ -78,13 +78,21 @@ dev_dependencies:
   flutter_lints: ^4.0.0
   hive_ce_generator: ^1.8.2
 
-# temporary until coinlib_flutter ships a 16 KB-aligned release; drop the override then.
+# GreenWallet: use the Melkisedek03 coinlib fork (branch nux/network), based on
+# willyfromtheblock/coinlib@16kb-align (coinlib 4.1.0, matching this wallet)
+# with the Nusacoin networks added. Keeps the 16 KB page-aligned secp256k1
+# natives required by Google Play.
 dependency_overrides:
   coinlib_flutter:
     git:
-      url: https://github.com/willyfromtheblock/coinlib
-      ref: 16kb-align
+      url: https://github.com/Melkisedek03/coinlib
+      ref: nux/network
       path: coinlib_flutter
+  coinlib:
+    git:
+      url: https://github.com/Melkisedek03/coinlib
+      ref: nux/network
+      path: coinlib
   frosty_flutter:
     git:
       url: https://github.com/willyfromtheblock/frosty

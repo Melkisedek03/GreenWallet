@@ -15,7 +15,7 @@ import '../providers/wallet_provider.dart';
 import '../tools/logger_wrapper.dart';
 import 'data_source.dart';
 
-enum ElectrumServerType { ssl, wss }
+enum ElectrumServerType { ssl, wss, tcp }
 
 class ElectrumBackend extends DataSource {
   Timer? _pingTimer;
@@ -89,7 +89,8 @@ class ElectrumBackend extends DataSource {
       await connect();
 
       var stream;
-      if (_serverType == ElectrumServerType.ssl) {
+      if (_serverType == ElectrumServerType.ssl ||
+          _serverType == ElectrumServerType.tcp) {
         stream = _connection;
       } else if (_serverType == ElectrumServerType.wss) {
         stream = _connection!.stream;
@@ -181,6 +182,18 @@ class ElectrumBackend extends DataSource {
           port,
           timeout: const Duration(seconds: 10),
         );
+      } else if (_serverUrl.contains('tcp://') && kIsWeb == false) {
+        // Plain TCP (no TLS), e.g. for electrs nodes on a trusted network.
+        _serverType = ElectrumServerType.tcp;
+
+        final split = _serverUrl.split(':');
+        final host = split[1].replaceAll('//', '');
+        final port = int.parse(split[2]);
+        _connection = await Socket.connect(
+          host,
+          port,
+          timeout: const Duration(seconds: 10),
+        );
       } else {
         //sockets / ssl is not available on web -> try other server
         _connectionAttempt++;
@@ -209,7 +222,8 @@ class ElectrumBackend extends DataSource {
   Future<void> closeConnection([bool intentional = true]) async {
     if (_connection != null) {
       _closedIntentionally = intentional;
-      if (_serverType == ElectrumServerType.ssl) {
+      if (_serverType == ElectrumServerType.ssl ||
+          _serverType == ElectrumServerType.tcp) {
         _connection.close();
       } else if (_serverType == ElectrumServerType.wss) {
         await _connection!.sink.close();
@@ -306,7 +320,8 @@ class ElectrumBackend extends DataSource {
       {'id': id, 'method': method, if (params != null) 'params': params},
     );
     if (_connection != null) {
-      if (_serverType == ElectrumServerType.ssl) {
+      if (_serverType == ElectrumServerType.ssl ||
+          _serverType == ElectrumServerType.tcp) {
         _connection.add(encodedMessage.codeUnits);
         _connection.add('\n'.codeUnits);
       } else if (_serverType == ElectrumServerType.wss &&
