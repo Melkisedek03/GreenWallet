@@ -292,6 +292,16 @@ class _ImportPaperWalletScreenState extends State<ImportPaperWalletScreen> {
       );
     }
 
+    // GreenWallet: coins without a fixed fee use the Electrum fee estimate.
+    // Falls back to the coin's fixed rate when estimation is unavailable.
+    double? feeRatePerKb;
+    if (_activeCoin.fixedFee == false) {
+      try {
+        feeRatePerKb = await _connectionProvider.estimateFeeRate();
+      } catch (_) {
+        feeRatePerKb = null;
+      }
+    }
     return await _walletProvider.buildTransaction(
       identifier: _walletName,
       recipients: {
@@ -300,6 +310,7 @@ class _ImportPaperWalletScreenState extends State<ImportPaperWalletScreen> {
       fee: 0,
       paperWalletPrivkey: _privKey,
       paperWalletUtxos: parsedWalletUtxos,
+      feeRatePerKb: feeRatePerKb,
     );
   }
 

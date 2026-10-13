@@ -19,7 +19,6 @@ import '../screens/settings/app_settings_default_wallet.dart';
 import '../screens/settings/app_settings_experimental_features.dart';
 import '../screens/settings/app_settings_language.dart';
 import '../screens/settings/app_settings_notifications.dart';
-import '../screens/settings/app_settings_price_feed.dart';
 import '../screens/settings/app_settings_screen.dart';
 import '../screens/settings/app_settings_wallet_order.dart';
 import '../screens/settings/server_settings/server_add.dart';
@@ -45,7 +44,6 @@ class Routes {
   static const String walletList = '/wallet-list';
   static const String appSettings = '/app-settings';
   static const String appSettingsNotifications = '/app-settings-notifications';
-  static const String appSettingsPriceFeed = '/app-settings-price-feed';
   static const String appSettingsLanguage = '/app-settings-language';
   static const String appSettingsDefaultWallet = '/app-settings-default-wallet';
   static const String appSettingsAppTheme = '/app-settings-app-theme';
@@ -196,10 +194,6 @@ class Routes {
           ),
       Routes.appSettingsAuthentication: (context) => const RouterMaster(
             widget: AppSettingsAuthenticationScreen(),
-            routeType: RouteTypes.requiresSetupFinished,
-          ),
-      Routes.appSettingsPriceFeed: (context) => const RouterMaster(
-            widget: AppSettingsPriceFeedScreen(),
             routeType: RouteTypes.requiresSetupFinished,
           ),
       Routes.appSettingsAppTheme: (context) => const RouterMaster(

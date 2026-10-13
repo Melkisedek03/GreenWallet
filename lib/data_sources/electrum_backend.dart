@@ -24,6 +24,7 @@ class ElectrumBackend extends DataSource {
   final WalletProvider walletProvider;
   final ServerProvider _servers;
   final StreamController _listenerNotifier = StreamController.broadcast();
+  final Map<String, Completer<dynamic>> _pendingRequests = {};
   bool _closedIntentionally = false;
   int _connectionAttempt = 0;
   int _resetAttempt = 1;
@@ -275,6 +276,11 @@ class ElectrumBackend extends DataSource {
     var idString = id.toString();
     var result = decoded['result'];
 
+    // Complete any pending request/response calls (e.g. estimatefee).
+    if (_pendingRequests.containsKey(idString)) {
+      _pendingRequests.remove(idString)!.complete(result);
+    }
+
     if (decoded['id'] != null) {
       LoggerWrapper.logInfo(
         'ElectrumConnection',
@@ -499,6 +505,30 @@ class ElectrumBackend extends DataSource {
       'broadcast_$txId',
       [txHash],
     );
+  }
+
+  /// Fee rate estimate in coins per kB via `blockchain.estimatefee`.
+  /// Returns null on timeout, error, or when the server gives no estimate
+  /// (electrs returns -1 when it has insufficient data).
+  @override
+  Future<double?> estimateFeeRate({int blocks = 6}) async {
+    final id =
+        'estimatefee_${DateTime.now().millisecondsSinceEpoch}';
+    final completer = Completer<dynamic>();
+    _pendingRequests[id] = completer;
+    sendMessage('blockchain.estimatefee', id, [blocks]);
+    try {
+      final result =
+          await completer.future.timeout(const Duration(seconds: 15));
+      if (result is num && result > 0) {
+        return result.toDouble();
+      }
+      return null;
+    } catch (_) {
+      return null;
+    } finally {
+      _pendingRequests.remove(id);
+    }
   }
 
   void handleTx(String id, Map? tx) async {

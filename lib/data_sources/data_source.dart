@@ -27,6 +27,12 @@ abstract class DataSource {
   void broadcastTransaction(String txHash, String txId) {}
   void requestTxUpdate(String txId) {}
 
+  /// Estimated fee rate in coins per kB for confirmation within [blocks].
+  /// Returns null when the backend does not support fee estimation.
+  Future<double?> estimateFeeRate({int blocks = 6}) async {
+    return null;
+  }
+
   Stream listenerNotifierStream() {
     throw UnimplementedError();
   }

@@ -611,11 +611,25 @@ class _SendTabState extends State<SendTab> {
 
   Future<BuildResult?> _buildTx() async {
     try {
+      // GreenWallet: coins without a fixed fee use the Electrum fee estimate.
+      // Falls back to the coin's fixed rate when estimation is unavailable.
+      double? feeRatePerKb;
+      if (_availableCoin.fixedFee == false) {
+        try {
+          feeRatePerKb = await Provider.of<ConnectionProvider>(
+            context,
+            listen: false,
+          ).estimateFeeRate();
+        } catch (_) {
+          feeRatePerKb = null;
+        }
+      }
       return await _walletProvider.buildTransaction(
         identifier: widget.wallet.name,
         recipients: _buildRecipientMap(),
         fee: 0,
         opReturn: _opReturnKey.currentState?.value ?? '',
+        feeRatePerKb: feeRatePerKb,
       );
     } catch (e) {
       LoggerWrapper.logError(

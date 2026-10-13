@@ -172,6 +172,9 @@ class WalletProvider with ChangeNotifier {
     int sizeBefore = 0,
     List<WalletUtxo>? paperWalletUtxos,
     String paperWalletPrivkey = '',
+    // GreenWallet: fee rate in coins per kB, fetched by the caller via
+    // ConnectionProvider.estimateFeeRate(). Null = use coin.fixedFeePerKb.
+    double? feeRatePerKb,
   }) async {
     //convert amount
     final decimalProduct = AvailableCoins.getDecimalProduct(
@@ -422,7 +425,14 @@ class WalletProvider with ChangeNotifier {
           },
         );
 
-        final number = (tx.size / 1000 * coin.fixedFeePerKb)
+        // GreenWallet: coins with fixedFee=false use the caller-provided
+        // Electrum fee estimate when available; otherwise (and for fixed-fee
+        // coins) fall back to the coin's fixed rate.
+        double effectiveFeeRatePerKb = coin.fixedFeePerKb;
+        if (coin.fixedFee == false && feeRatePerKb != null) {
+          effectiveFeeRatePerKb = feeRatePerKb;
+        }
+        final number = (tx.size / 1000 * effectiveFeeRatePerKb)
             .toStringAsFixed(coin.fractions);
         final asDouble = double.parse(number) * decimalProduct;
         final requiredFeeInSatoshis = asDouble.round();
@@ -450,6 +460,7 @@ class WalletProvider with ChangeNotifier {
             firstPass: false,
             paperWalletPrivkey: paperWalletPrivkey,
             paperWalletUtxos: paperWalletUtxos,
+            feeRatePerKb: feeRatePerKb,
           );
         } else {
           //second pass or later

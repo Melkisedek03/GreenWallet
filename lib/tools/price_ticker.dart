@@ -1,30 +1,15 @@
-import 'dart:convert';
-
 import 'package:flutter/foundation.dart';
-import 'package:http/http.dart' as http;
-import 'package:http/retry.dart';
 
 import '../providers/app_settings_provider.dart';
 import 'logger_wrapper.dart';
 
 class PriceTicker {
   static Future<Map<String, dynamic>> getDataFromTicker() async {
-    final client = RetryClient(http.Client());
-    var url = Uri.parse('https://peercoinexplorer.net/price-ticker');
-    try {
-      var response = await client.read(url);
-      final Map<String, dynamic> data = json.decode(response);
-      return data;
-    } catch (err) {
-      LoggerWrapper.logError(
-        'PriceTicker',
-        'getDataFromTicker',
-        err.toString(),
-      );
-      rethrow;
-    } finally {
-      client.close();
-    }
+    // GreenWallet: no price feed backend is configured for NUX yet, so no
+    // network request is made. renderPrice() below returns 0.0 for unknown
+    // coins, which the UI already handles. Wire a real NUX price source here
+    // when one becomes available.
+    return {};
   }
 
   static Map currencySymbols = {

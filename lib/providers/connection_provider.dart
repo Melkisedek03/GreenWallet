@@ -67,4 +67,9 @@ class ConnectionProvider with ChangeNotifier {
   void requestTxUpdate(String txId) {
     _dataSource.requestTxUpdate(txId);
   }
+
+  /// Fee rate estimate in coins per kB, or null when unsupported/unavailable.
+  Future<double?> estimateFeeRate({int blocks = 6}) {
+    return _dataSource.estimateFeeRate(blocks: blocks);
+  }
 }

@@ -78,7 +78,9 @@ class AvailableCoins {
       // Dust policy: 546 nusan, mirroring the node's dust relay threshold
       // for P2PKH (NUX uses Bitcoin-identical DUST_RELAY_TX_FEE=3000).
       minimumTxValue: 546,
-      fixedFee: true,
+      // GreenWallet: NUX uses Electrum fee estimation (blockchain.estimatefee);
+      // fixedFeePerKb is kept as the fallback when estimation is unavailable.
+      fixedFee: false,
       fixedFeePerKb: 0.01,
       explorerUrl: 'https://explorer.taobot.org',
       genesisHash:
@@ -102,7 +104,9 @@ class AvailableCoins {
       opreturnSize: 80,
       fractions: 8,
       minimumTxValue: 546,
-      fixedFee: true,
+      // GreenWallet: NUX uses Electrum fee estimation (blockchain.estimatefee);
+      // fixedFeePerKb is kept as the fallback when estimation is unavailable.
+      fixedFee: false,
       fixedFeePerKb: 0.01,
       explorerUrl: 'https://explorer.taobot.org',
       genesisHash:

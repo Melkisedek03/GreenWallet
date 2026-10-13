@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hive_ce_flutter/hive_flutter.dart';
+import 'package:peercoin/models/available_coins.dart';
 import 'package:peercoin/models/hive/adapters/client_config_hive_adapter.dart';
 import 'package:peercoin/models/hive/adapters/ec_compressed_public_key_hive_adapter.dart';
 import 'package:peercoin/models/hive/adapters/ec_private_key_hive_adapter.dart';
@@ -272,9 +273,16 @@ class BackgroundSync {
     required Map<String, int> addressesToQuery,
     bool fromScan = false,
   }) async {
-    final (grpcClient, close) = getMarismaClient(walletName);
-
     Map<String, int> answerMap = {};
+
+    // GreenWallet: Marisma (the ROAST threshold-signing backend) is disabled.
+    // Coins without Marisma servers skip this check instead of crashing on
+    // an empty server list.
+    if (AvailableCoins.getSpecificCoin(walletName).marismaServers.isEmpty) {
+      return answerMap;
+    }
+
+    final (grpcClient, close) = getMarismaClient(walletName);
 
     try {
       await grpcClient.getBlockHeight(EmptyRequest());

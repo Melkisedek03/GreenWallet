@@ -1,10 +1,6 @@
-import 'dart:io';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../providers/connection_provider.dart';
 import '../../../tools/share_wrapper.dart';
@@ -96,113 +92,6 @@ class _ReceiveTabState extends State<ReceiveTab> {
         r'})?)$';
 
     return RegExp(expression);
-  }
-
-  void launchURL(String url) async {
-    await showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(
-            AppLocalizations.instance.translate('buy_peercoin_dialog_title'),
-          ),
-          content: Text(
-            AppLocalizations.instance.translate('buy_peercoin_dialog_content'),
-          ),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Text(
-                AppLocalizations.instance
-                    .translate('server_settings_alert_cancel'),
-              ),
-            ),
-            TextButton(
-              onPressed: () async {
-                final navigator = Navigator.of(context);
-                await canLaunchUrlString(url)
-                    ? await launchUrlString(url)
-                    : throw 'Could not launch $url';
-
-                navigator.pop();
-              },
-              child: Text(
-                AppLocalizations.instance.translate('continue'),
-              ),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  Widget renderPurchaseButtons() {
-    if (widget.wallet.letterCode == 'tPPC') {
-      return Align(
-        child: PeerContainer(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              PeerServiceTitle(
-                title: AppLocalizations.instance.translate('receive_obtain'),
-              ),
-              const SizedBox(height: 20),
-              Text(
-                AppLocalizations.instance.translate('receive_website_faucet'),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 20),
-              PeerButton(
-                text: AppLocalizations.instance.translate('receive_faucet'),
-                action: () {
-                  launchURL('https://ppc.lol/faucet/');
-                },
-              ),
-            ],
-          ),
-        ),
-      );
-    } else if (!kIsWeb) {
-      if (widget.wallet.letterCode == 'PPC' && Platform.isIOS == false) {
-        return Align(
-          child: PeerContainer(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                PeerServiceTitle(
-                  title: AppLocalizations.instance.translate('buy_peercoin'),
-                ),
-                const SizedBox(height: 20),
-                Text(
-                  AppLocalizations.instance
-                      .translate('receive_website_description'),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 20),
-                PeerButton(
-                  text: AppLocalizations.instance
-                      .translate('receive_website_credit'),
-                  action: () {
-                    launchURL('https://ppc.lol/buy');
-                  },
-                ),
-                const SizedBox(height: 20),
-                PeerButton(
-                  text: AppLocalizations.instance
-                      .translate('receive_website_exchandes'),
-                  action: () {
-                    launchURL('https://ppc.lol/exchanges');
-                  },
-                ),
-              ],
-            ),
-          ),
-        );
-      }
-    }
-    return const SizedBox();
   }
 
   @override
@@ -366,7 +255,6 @@ class _ReceiveTabState extends State<ReceiveTab> {
                 ),
               ),
             ),
-            renderPurchaseButtons(),
           ],
         ),
       ],

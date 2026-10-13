@@ -27,7 +27,6 @@ class _SetupDataFeedsScreenState extends State<SetupDataFeedsScreen> {
         : throw 'Could not launch $url';
   }
 
-  bool _dataFeedAllowed = false;
   bool _bgSyncdAllowed = false;
   bool _initial = true;
   late AppSettingsProvider _settings;
@@ -49,14 +48,6 @@ class _SetupDataFeedsScreenState extends State<SetupDataFeedsScreen> {
       });
     }
     super.didChangeDependencies();
-  }
-
-  void togglePriceTickerHandler(bool newState) {
-    _settings.setSelectedCurrency(newState == true ? 'USD' : '');
-
-    setState(() {
-      _dataFeedAllowed = newState;
-    });
   }
 
   void toggleBGSyncHandler(bool newState) {
@@ -114,44 +105,6 @@ class _SetupDataFeedsScreenState extends State<SetupDataFeedsScreen> {
                           width: 40,
                         ),
                       ],
-                    ),
-                    Expanded(
-                      child: Container(
-                        width: MediaQuery.of(context).size.width > 1200
-                            ? MediaQuery.of(context).size.width / 2
-                            : MediaQuery.of(context).size.width,
-                        padding: const EdgeInsets.symmetric(horizontal: 24),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 16),
-                              child: SwitchListTile(
-                                key: const Key('setupApiTickerSwitchKey'),
-                                title: Text(
-                                  AppLocalizations.instance
-                                      .translate('setup_price_feed_allow'),
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                value: _dataFeedAllowed,
-                                activeThumbColor: Colors.white,
-                                inactiveThumbColor: Colors.grey,
-                                onChanged: (newState) =>
-                                    togglePriceTickerHandler(newState),
-                              ),
-                            ),
-                            PeerExplanationText(
-                              text: AppLocalizations.instance.translate(
-                                'setup_price_feed_description',
-                              ),
-                              maxLines: 2,
-                            ),
-                          ],
-                        ),
-                      ),
                     ),
                     if (!kIsWeb)
                       Expanded(
