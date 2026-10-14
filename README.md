@@ -1,71 +1,47 @@
-<a href="https://weblate.ppc.lol/engage/peercoin-flutter/">
-<img src="https://weblate.ppc.lol/widgets/peercoin-flutter/-/translations/svg-badge.svg" alt="Übersetzungsstatus" /></a>
-[![Codemagic build status](https://api.codemagic.io/apps/61012a37d885ed7a8c3e8b25/61012a37d885ed7a8c3e8b24/status_badge.svg)](https://codemagic.io/apps/61012a37d885ed7a8c3e8b25/61012a37d885ed7a8c3e8b24/latest_build)
-[![Static analysis and unit tests](https://github.com/peercoin/peercoin_flutter/actions/workflows/static_analysis_and_unit_test.yml/badge.svg)](https://github.com/peercoin/peercoin_flutter/actions/workflows/static_analysis_and_unit_test.yml)
-[![Release Drafter](https://github.com/peercoin/peercoin_flutter/actions/workflows/release-drafter.yml/badge.svg)](https://github.com/peercoin/peercoin_flutter/actions)
+# GreenWallet
 
-# peercoin_flutter
+Mobile wallet for Nusacoin (NUX) mainnet and testnet, using
+[electrs](https://github.com/Melkisedek03/electrs) as backend over the Electrum protocol.
 
-Wallet for Peercoin and Peercoin Testnet using Electrumx as backend.  
-**App in constant development**
+**App in constant development.**
 
 **Use at own risk.**
 
-<p align="center">
-     <a href="https://f-droid.org/packages/com.coinerella.peercoin/">
-<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
-     alt="Get it on F-Droid"
-     height="80"></a>
-<a href="https://play.google.com/store/apps/details?id=com.coinerella.peercoin"><img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
-     alt="Get it on Google Play" height="80"></a>
-</p>
-<p align="center">
-     <a href="https://apps.apple.com/app/peercoin-wallet/id1571755170?itsct=apps_box_badge&amp;itscg=30200" style="display: inline-block; overflow: hidden; border-radius: 13px; width: 250px; height: 83px;"><img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83&amp;releaseDate=1626912000&h=8e86ea0b88a4e8559b76592c43b3fe60" alt="Download on the App Store" style="border-radius: 13px; width: 250px; height: 83px;"></a>
-</p>
+## Features
 
-You can also sign up for our open beta testing here:
+- Send and receive NUX on-chain (mainnet + testnet)
+- Custom Electrum (electrs) server support — point the wallet at any compatible server
+- Seed backup and restore (BIP39)
+- Dark and light themes (Emerald Deep)
 
-- [Android](https://play.google.com/apps/testing/com.coinerella.peercoin)
-- [iOS](https://testflight.apple.com/join/iilc4SvQ)
+## Backend
 
-![Screenshot_small](https://user-images.githubusercontent.com/11148913/124509449-470f7c80-ddd2-11eb-9daf-56de7eb83594.png)
-
-## Help Translate
-
-<a href="https://weblate.ppc.lol/engage/peercoin-flutter/">
-<img src="https://weblate.ppc.lol/widgets/peercoin-flutter/-/translations/multi-auto.svg" alt="Translation status" />
-</a>
-
-## Known Limitations
-
-- will not mint
+GreenWallet speaks the Electrum protocol (v1.4) to electrs servers running the
+Nusacoin fork of electrs. The default server is `apinux.taobot.org`
+(TCP, port 50009). Custom servers can be added in-app.
 
 ## Development
 
-**Build coinlib**  
+**Build coinlib**
 This repository relies on
-[coinlib.](https://github.com/peercoin/coinlib "https://github.com/peercoin/coinlib")  
-Please follow the build instructions for your OS here:
-[README](https://github.com/peercoin/coinlib/blob/master/coinlib/README.md)
+[coinlib.](https://github.com/Melkisedek03/coinlib "https://github.com/Melkisedek03/coinlib")
+(branch `nux/network`, based on coinlib 4.1.0 with the Nusacoin networks added).
+Please follow the build instructions for your OS in the coinlib README.
 
-**Update icons**  
+**Update icons**
 `dart run flutter_launcher_icons:main`
 
-**Update Hive adapters**  
+**Update Hive adapters**
 `dart run build_runner build`
 
-**Update splash screen**  
+**Update splash screen**
 `dart run flutter_native_splash:create`
-
-**Generate proto files**  
-`protoc --dart_out=grpc:lib/generated -Iprotos protos/marisma.proto`
-
-**Build for web**  
-`flutter pub global activate peanut`  
-`flutter pub global run peanut -b production`  
-Web files are now on the production branch and ready to be deployed.  
 
 ## Run e2e tests
 
-`flutter drive --target=test_driver/app.dart --driver=test_driver/key_new.dart`  
+`flutter drive --target=test_driver/app.dart --driver=test_driver/key_new.dart`
 `flutter drive --target=test_driver/app.dart --driver=test_driver/key_imported.dart`
+
+## License
+
+GreenWallet is released under the [AGPL-3.0](LICENSE) license.
