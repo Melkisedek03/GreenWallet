@@ -6,13 +6,13 @@ class LocalNotificationSettings {
 
   static const AndroidNotificationDetails androidPlatformChannelSpecifics =
       AndroidNotificationDetails(
-    'ppc',
-    'Peercoin',
-    channelDescription: 'Notification channel for Peercoin app',
+    'greenwallet',
+    'GreenWallet',
+    channelDescription: 'Notification channel for GreenWallet app',
     importance: Importance.max,
     priority: Priority.high,
     showWhen: true,
-    sound: RawResourceAndroidNotificationSound('money'),
+    sound: RawResourceAndroidNotificationSound('greenwallet'),
   );
 
   static NotificationDetails get platformChannelSpecifics {

@@ -7,7 +7,7 @@ import 'coin.dart';
 // TODO(GreenWallet): set the real public Electrum hostnames once the NUX
 // electrs endpoints are published. Users can already add custom servers
 // via the in-app server settings in the meantime.
-const nusacoinElectrumHost = 'electrum.nusacoin.example';
+const nusacoinElectrumHost = 'apinux.taobot.org';
 const nusacoinTestnetElectrumHost = 'testnet-electrum.nusacoin.example';
 
 class AvailableCoins {
@@ -69,9 +69,8 @@ class AvailableCoins {
       displayName: 'Nusacoin',
       uriCode: 'nusacoin',
       letterCode: 'NUX',
-      // TODO(GreenWallet Phase 4): replace with NUX icons (Emerald Deep).
-      iconPath: 'assets/icon/ppc-icon-48.png',
-      iconPathTransparent: 'assets/icon/ppc-icon-white-48.png',
+      iconPath: 'assets/icon/nux-icon-48.png',
+      iconPathTransparent: 'assets/icon/nux-icon-white-48.png',
       networkType: Network.nusacoin,
       opreturnSize: 80,
       fractions: 8,

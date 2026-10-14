@@ -100,7 +100,7 @@ class MyTheme {
         brightness: Brightness.light,
         tertiary: LightColors.white,
       ).copyWith(surface: LightColors.white).copyWith(error: LightColors.red),
-      bottomAppBarTheme: const BottomAppBarThemeData(color: Color(0x003cb054)),
+      bottomAppBarTheme: const BottomAppBarThemeData(color: Color(0x000A5C42)),
     ),
     ThemeMode.dark: ThemeData.dark().copyWith(
       cardColor: DarkColors.green,
@@ -217,7 +217,7 @@ class MyTheme {
         brightness: Brightness.dark,
         tertiary: DarkColors.white,
       ).copyWith(surface: DarkColors.green).copyWith(error: DarkColors.red),
-      bottomAppBarTheme: const BottomAppBarThemeData(color: Color(0x000D1821)),
+      bottomAppBarTheme: const BottomAppBarThemeData(color: Color(0x00062A20)),
     ),
   };
 
@@ -227,25 +227,26 @@ class MyTheme {
 }
 
 abstract class LightColors {
-  static Color get black => const Color(0xFF000000);
-  static Color get blackGreen => const Color(0xFF31493C);
-  static Color get darkGreen => const Color(0xFF2A7A3A);
-  static Color get green => const Color(0xff3cb054);
-  static Color get lightGreen => const Color(0xffB3E5BD);
-  static Color get grey => const Color(0xFF717C89);
-  static Color get lightGrey => const Color(0x55717C89);
-  static Color get white => const Color(0xFFFAFAFA);
+  static Color get black => const Color(0xFF062A20);
+  static Color get blackGreen => const Color(0xFF1B3A2F);
+  static Color get darkGreen => const Color(0xFF084A35);
+  static Color get green => const Color(0xFF0A5C42);
+  static Color get lightGreen => const Color(0xFFBFE8D6);
+  static Color get grey => const Color(0xFF5A6B62);
+  static Color get lightGrey => const Color(0x556B7D6E);
+  static Color get white => const Color(0xFFF2F8F5);
   static Color get red => const Color(0xFFF8333C);
   static Color get yellow => const Color(0xFFFFBF46);
+  static Color get mint => const Color(0xFF2FBF8F);
 }
 
 abstract class DarkColors {
-  static Color get black => const Color(0xFF0D1821);
-  static Color get darkGreen => const Color(0xFF2A7A3A);
-  static Color get green => const Color(0xFF2D936C);
-  static Color get lightGreen => const Color(0xffB3E5BD);
-  static Color get darkBlue => const Color(0xFF234058);
-  static Color get grey => const Color(0xFF717C89);
-  static Color get white => const Color(0xFFFAFAFA);
+  static Color get black => const Color(0xFF062A20);
+  static Color get darkGreen => const Color(0xFF084A35);
+  static Color get green => const Color(0xFF0A5C42);
+  static Color get lightGreen => const Color(0xFF2FBF8F);
+  static Color get darkBlue => const Color(0xFF0A3A2C);
+  static Color get grey => const Color(0xFF8AA39A);
+  static Color get white => const Color(0xFFEAF4EF);
   static Color get red => const Color(0xFFA8201A);
 }
