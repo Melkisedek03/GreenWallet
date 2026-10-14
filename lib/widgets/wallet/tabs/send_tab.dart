@@ -632,6 +632,7 @@ class _SendTabState extends State<SendTab> {
         feeRatePerKb: feeRatePerKb,
       );
     } catch (e) {
+      if (!mounted) return null;
       LoggerWrapper.logError(
         'SendTab',
         'buildTx',

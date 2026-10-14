@@ -13,7 +13,6 @@ final Map<String, String> _availableSettings = {
   'app_settings_auth_header': Routes.appSettingsAuthentication,
   'app_settings_theme': Routes.appSettingsAppTheme,
   'server_settings_title': Routes.serverSettingsHome,
-  'app_settings_experimental_features': Routes.appSettingsExperimentalFeatures,
 };
 
 get availableSettings {
