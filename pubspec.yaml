@@ -102,8 +102,10 @@ dependency_overrides:
 flutter_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/icon/ppc-icon.png"
-  image_path_ios: "assets/icon/ppc-ios-app-xxl.png"
+  image_path: "assets/icon/greenwallet-icon.png"
+  image_path_ios: "assets/icon/greenwallet-ios-app-xxl.png"
+  adaptive_icon_background: "assets/icon/greenwallet-adaptive-background.png"
+  adaptive_icon_foreground: "assets/icon/greenwallet-adaptive-foreground.png"
   remove_alpha_ios: true
 
 flutter_launcher_name:
