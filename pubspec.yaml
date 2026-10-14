@@ -109,11 +109,15 @@ flutter_icons:
   remove_alpha_ios: true
 
 flutter_launcher_name:
-  name: "Peercoin"
+  name: "GreenWallet"
 
 flutter_native_splash:
-  color: "#FFFFFF"
-  image: assets/icon/ppc-icon-256.png
+  color: "#062A20"
+  image: assets/icon/greenwallet-icon.png
+  background_image: assets/icon/greenwallet-splash-bg.png
+  color_dark: "#062A20"
+  image_dark: assets/icon/greenwallet-icon.png
+  background_image_dark: assets/icon/greenwallet-splash-bg.png
 
 flutter:
   uses-material-design: true
