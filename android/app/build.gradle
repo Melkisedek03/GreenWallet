@@ -31,7 +31,7 @@ if (keystorePropertiesFile.exists()) {
 android {
     compileSdkVersion 36
     ndkVersion "27.2.12479018"
-    namespace "com.coinerella.peercoin"
+    namespace "com.nusa.greenwallet"
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -42,7 +42,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.coinerella.peercoin"
+        applicationId "com.nusa.greenwallet"
         minSdkVersion 26
         targetSdkVersion 36
         versionCode flutterVersionCode.toInteger()
