@@ -151,11 +151,11 @@ class _AboutScreenState extends State<AboutScreen> {
                       ),
                       TextButton(
                         onPressed: () async => _launchURL(
-                          'https://weblate.ppc.lol',
+                          'https://github.com/Melkisedek03/GreenWallet',
                         ),
                         child: Text(
                           AppLocalizations.instance.translate(
-                            'about_go_weblate',
+                            'about_go_github',
                           ),
                           textAlign: TextAlign.center,
                         ),
