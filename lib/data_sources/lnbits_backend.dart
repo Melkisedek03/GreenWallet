@@ -121,18 +121,39 @@ class LnbitsBackend {
   /// Subscribe to realtime payment events. [onEvent] fires on every push
   /// message; the caller should refresh balance and history there.
   /// Returns the subscription; the caller must cancel it.
+  ///
+  /// Connection failures never throw: the handshake error is logged and the
+  /// returned subscription simply never receives events, so callers can
+  /// always cancel() it safely.
   StreamSubscription<dynamic> listenPayments(void Function() onEvent) {
-    final wsBase = _base.replaceFirst(RegExp(r'^http'), 'ws');
-    final channel = WebSocketChannel.connect(
-      Uri.parse('$wsBase/api/v1/ws/$inkey'),
-    );
-    return channel.stream.listen(
-      (_) => onEvent(),
-      onError: (Object e) =>
-          LoggerWrapper.logError('LnbitsBackend', 'ws', 'WS error: $e'),
-      onDone: () =>
-          LoggerWrapper.logInfo('LnbitsBackend', 'ws', 'WS closed by server'),
-    );
+    try {
+      final wsBase = _base.replaceFirst(RegExp(r'^http'), 'ws');
+      final channel = WebSocketChannel.connect(
+        Uri.parse('$wsBase/api/v1/ws/$inkey'),
+      );
+      // A failed handshake completes `ready` with an error *in addition* to
+      // the stream error below. Without this handler the `ready` error is an
+      // unhandled async exception. (A bare try-catch around
+      // WebSocketChannel.connect alone would not fix it: the failure is
+      // asynchronous.)
+      channel.ready.then(
+        (_) => LoggerWrapper.logInfo('LnbitsBackend', 'ws', 'WS connected'),
+        onError: (Object e) => LoggerWrapper.logError(
+            'LnbitsBackend', 'ws', 'WS connect failed: $e',),
+      );
+      return channel.stream.listen(
+        (_) => onEvent(),
+        onError: (Object e) =>
+            LoggerWrapper.logError('LnbitsBackend', 'ws', 'WS error: $e'),
+        onDone: () => LoggerWrapper.logInfo(
+            'LnbitsBackend', 'ws', 'WS closed by server',),
+      );
+    } catch (e) {
+      // Synchronous setup failure (e.g. malformed base URL): log it and hand
+      // back a no-op subscription the caller can still cancel().
+      LoggerWrapper.logError('LnbitsBackend', 'ws', 'WS setup failed: $e');
+      return const Stream<dynamic>.empty().listen((_) {});
+    }
   }
 }
 
