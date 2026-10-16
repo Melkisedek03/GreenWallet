@@ -19,10 +19,10 @@ import 'package:greenwallet/models/hive/adapters/signature_nonces_hive_adapter.d
 import 'package:greenwallet/models/hive/adapters/signature_request_id_hive_adapter.dart';
 import 'package:greenwallet/models/hive/adapters/signing_nonces_hive_adapter.dart';
 import 'package:greenwallet/models/hive/roast_wallet.dart';
-import 'package:greenwallet/tools/marisma_client.dart';
+import 'package:coinlib_flutter/coinlib_flutter.dart';
+import 'package:crypto/crypto.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../generated/marisma.pbgrpc.dart';
 import '../models/hive/app_options.dart';
 import '../models/hive/coin_wallet.dart';
 import '../models/hive/pending_notifications.dart';
@@ -166,37 +166,27 @@ class BackgroundSync {
 
     //loop through wallets
     for (var wallet in walletBox.values) {
-      //increment identifier for notifications
       if (appOptions.notificationActiveWallets.contains(wallet.name)) {
-        //if activated, parse all addresses to a list that will be POSTed to backend later on
-        var adressesToQuery = <String, int>{};
-        var utxos = wallet.utxos;
+        //collect addresses to check: watched ones, funded ones,
+        //and the last (unused/change) address
+        final addressesToQuery = <String>[];
+        final utxos = wallet.utxos;
+        final pendingAddresses = wallet.pendingTransactionNotifications
+            .map((e) => e.address)
+            .toSet();
 
         for (var walletAddress in wallet.addresses) {
-          var utxoRes = utxos.firstWhereOrNull(
+          final utxoRes = utxos.firstWhereOrNull(
             (element) => element.address == walletAddress.address,
           );
-
           if (walletAddress.isOurs == true) {
             if (walletAddress.isWatched == true ||
                 utxoRes != null && utxoRes.value > 0 ||
                 wallet.addresses.indexOf(walletAddress) ==
-                    wallet.addresses.length - 1)
-            //assumes that last wallet in list is always the unused/change address
-            {
-              //check if that address already has a pending notification
-              var res = wallet.pendingTransactionNotifications
-                  .where(
-                    (element) => element.address == walletAddress.address,
-                  )
-                  .toList();
-              if (res.isNotEmpty) {
-                //addr does have a pending notification
-                adressesToQuery[walletAddress.address] = res[0].tx;
-              } else {
-                //addr does not have a pending notification
-                adressesToQuery[walletAddress.address] =
-                    walletAddress.notificationBackendCount;
+                    wallet.addresses.length - 1) {
+              //skip addresses with an unconfirmed pending notification
+              if (!pendingAddresses.contains(walletAddress.address)) {
+                addressesToQuery.add(walletAddress.address);
               }
             }
           }
@@ -205,12 +195,21 @@ class BackgroundSync {
         LoggerWrapper.logInfo(
           'BackgroundSync',
           'executeSync ${wallet.name}',
-          'addressesToQuery $adressesToQuery',
+          'addressesToQuery $addressesToQuery',
         );
 
-        var marismaResult = await getNumberOfUtxosFromMarisma(
-          walletName: wallet.name,
-          addressesToQuery: adressesToQuery,
+        //local balances from the last foreground sync
+        final localBalances = <String, int>{};
+        for (final utxo in utxos) {
+          localBalances[utxo.address] =
+              (localBalances[utxo.address] ?? 0) + utxo.value;
+        }
+
+        //remote balances from the wallet's own Electrum server
+        final remoteBalances = await getBalancesFromElectrum(
+          identifier: wallet.name,
+          addresses: addressesToQuery,
+          encryptionKey: encryptionKey,
         );
 
         var shouldNotify = false;
@@ -218,38 +217,26 @@ class BackgroundSync {
         LoggerWrapper.logInfo(
           'BackgroundSync',
           'executeSync ${wallet.name}',
-          'result $marismaResult',
+          'result $remoteBalances',
         );
 
-        if (marismaResult.isNotEmpty) {
-          //loop through addresses in result
-          marismaResult.forEach(
-            (addr, n) {
-              //write tx result from API into coinwallet
-              if (n > adressesToQuery[addr]!) {
-                wallet.putPendingTransactionNotification(
-                  PendingNotification(
-                    address: addr,
-                    tx: n,
-                  ),
-                );
-                shouldNotify = true;
-              } else {
-                WalletAddress? walletAddress =
-                    wallet.addresses.firstWhereOrNull(
-                  (element) => element.address == addr,
-                );
-                if (walletAddress != null) {
-                  walletAddress.newNotificationBackendCount = n;
-                }
-              }
-            },
-          );
-
-          if (fromScan == true) {
-            //persist backend data
-            wallet.clearPendingTransactionNotifications();
+        remoteBalances.forEach((addr, remoteBalance) {
+          final localBalance = localBalances[addr] ?? 0;
+          if (remoteBalance > localBalance) {
+            //new incoming funds since the last sync
+            wallet.putPendingTransactionNotification(
+              PendingNotification(
+                address: addr,
+                tx: remoteBalance,
+              ),
+            );
+            shouldNotify = true;
           }
+        });
+
+        if (fromScan == true) {
+          //foreground scan picked everything up; clear pendings
+          wallet.clearPendingTransactionNotifications();
         }
 
         if (shouldNotify == true && fromScan == false) {
@@ -268,56 +255,164 @@ class BackgroundSync {
     }
   }
 
-  static Future<Map<String, int>> getNumberOfUtxosFromMarisma({
-    required String walletName,
-    required Map<String, int> addressesToQuery,
-    bool fromScan = false,
+  /// Returns the total (confirmed + unconfirmed) balance in the coin's smallest
+  /// unit for each address, queried from the wallet's own Electrum server via a
+  /// single batched `blockchain.scripthash.get_balance` request.
+  /// Returns an empty map when there is no usable server or the query fails,
+  /// in which case the sync is silently skipped until the next run.
+  static Future<Map<String, int>> getBalancesFromElectrum({
+    required String identifier,
+    required List<String> addresses,
+    required Uint8List encryptionKey,
   }) async {
-    Map<String, int> answerMap = {};
+    final balances = <String, int>{};
+    if (addresses.isEmpty) return balances;
 
-    // GreenWallet: Marisma (the ROAST threshold-signing backend) is disabled.
-    // Coins without Marisma servers skip this check instead of crashing on
-    // an empty server list.
-    if (AvailableCoins.getSpecificCoin(walletName).marismaServers.isEmpty) {
-      return answerMap;
-    }
-
-    final (grpcClient, close) = getMarismaClient(walletName);
-
+    //pick the wallet's Electrum server (highest priority usable one),
+    //so custom user-configured servers keep working
+    String? serverAddress;
     try {
-      await grpcClient.getBlockHeight(EmptyRequest());
+      final serverBox = await Hive.openBox<Server>(
+        'serverBox-$identifier',
+        encryptionCipher: HiveAesCipher(encryptionKey),
+      );
+      final servers = serverBox.values
+          .where((s) => !s.hidden && s.connectable)
+          .toList()
+        ..sort((a, b) => a.priority.compareTo(b.priority));
+      if (servers.isNotEmpty) serverAddress = servers.first.address;
+      await serverBox.close();
     } catch (e) {
-      //client not available
-      return answerMap;
+      LoggerWrapper.logWarn(
+        'BackgroundSync',
+        'getBalancesFromElectrum',
+        'cannot open server box: $e',
+      );
+      return balances;
+    }
+    if (serverAddress == null) {
+      LoggerWrapper.logInfo(
+        'BackgroundSync',
+        'getBalancesFromElectrum',
+        'no usable Electrum server for $identifier',
+      );
+      return balances;
     }
 
-    await Future.forEach(
-      addressesToQuery.keys,
-      (String addr) async {
-        int n = addressesToQuery[addr]!;
+    //parse tcp://host:port / ssl://host:port (same format as the foreground client)
+    final isSsl = serverAddress.contains('ssl://');
+    if (!isSsl && !serverAddress.contains('tcp://')) {
+      LoggerWrapper.logWarn(
+        'BackgroundSync',
+        'getBalancesFromElectrum',
+        'unsupported server protocol: $serverAddress',
+      );
+      return balances;
+    }
+    final parts = serverAddress.split(':');
+    if (parts.length < 3) return balances;
+    final host = parts[1].replaceAll('//', '');
+    final port = int.tryParse(parts[2]);
+    if (host.isEmpty || port == null) return balances;
 
-        final isKnownRes = await grpcClient.getAddressIsKnown(
-          AddressRequest(address: addr),
+    //derive scripthashes (same derivation as WalletProvider.getScriptHash)
+    late final Network network;
+    try {
+      network = AvailableCoins.getSpecificCoin(identifier).networkType;
+    } catch (e) {
+      LoggerWrapper.logWarn(
+        'BackgroundSync',
+        'getBalancesFromElectrum',
+        'unknown coin identifier: $identifier',
+      );
+      return balances;
+    }
+    final scripthashByAddress = <String, String>{};
+    for (final address in addresses) {
+      try {
+        final script =
+            Address.fromString(address, network).program.script.compiled;
+        scripthashByAddress[address] =
+            _reverseHex(sha256.convert(script).toString());
+      } catch (e) {
+        LoggerWrapper.logWarn(
+          'BackgroundSync',
+          'getBalancesFromElectrum',
+          'cannot derive scripthash for $address: $e',
         );
-        if (isKnownRes.isKnown == true) {
-          final addressNumberOfUtxosReply =
-              await grpcClient.getAddressNumberOfUtxos(
-            AddressRequest(
-              address: addr,
-            ),
-          );
-          if (fromScan == true) {
-            answerMap[addr] = addressNumberOfUtxosReply.n;
-          } else if (addressNumberOfUtxosReply.n != n) {
-            answerMap[addr] = addressNumberOfUtxosReply.n;
-          }
+      }
+    }
+    if (scripthashByAddress.isEmpty) return balances;
+
+    //single batched JSON-RPC request: one round trip for all addresses
+    final batch = <Map<String, dynamic>>[];
+    final idToAddress = <int, String>{};
+    var id = 0;
+    for (final entry in scripthashByAddress.entries) {
+      batch.add({
+        'jsonrpc': '2.0',
+        'id': id,
+        'method': 'blockchain.scripthash.get_balance',
+        'params': [entry.value],
+      });
+      idToAddress[id] = entry.key;
+      id++;
+    }
+
+    Socket? socket;
+    try {
+      socket = isSsl
+          ? await SecureSocket.connect(
+              host,
+              port,
+              timeout: const Duration(seconds: 10),
+            )
+          : await Socket.connect(
+              host,
+              port,
+              timeout: const Duration(seconds: 10),
+            );
+      socket.write('${jsonEncode(batch)}\n');
+      await socket.flush();
+
+      final responseLine = await socket
+          .transform(utf8.decoder)
+          .transform(const LineSplitter())
+          .first
+          .timeout(const Duration(seconds: 15));
+      final decoded = jsonDecode(responseLine);
+      final responses = decoded is List ? decoded : [decoded];
+      for (final r in responses) {
+        final responseId = r['id'];
+        final address = responseId is int ? idToAddress[responseId] : null;
+        final res = r['result'];
+        if (address != null && res is Map) {
+          final confirmed = (res['confirmed'] as num?)?.toInt() ?? 0;
+          final unconfirmed = (res['unconfirmed'] as num?)?.toInt() ?? 0;
+          balances[address] = confirmed + unconfirmed;
         }
-      },
-    );
+      }
+    } catch (e) {
+      LoggerWrapper.logWarn(
+        'BackgroundSync',
+        'getBalancesFromElectrum',
+        'electrum query failed: $e',
+      );
+    } finally {
+      try {
+        await socket?.close();
+      } catch (_) {}
+    }
+    return balances;
+  }
 
-    //close client
-    await close();
-
-    return answerMap;
+  /// Reverses a hex string byte-wise (big-endian -> little-endian),
+  /// as required for Electrum scripthashes.
+  static String _reverseHex(String hex) {
+    final out = StringBuffer();
+    for (var i = hex.length - 2; i >= 0; i -= 2) {
+      out.write(hex.substring(i, i + 2));
+    }
+    return out.toString();
   }
 }
