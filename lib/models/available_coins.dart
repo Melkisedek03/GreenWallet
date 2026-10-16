@@ -34,9 +34,7 @@ class AvailableCoins {
         'wss://electrum.peercoinexplorer.net:50004',
         'wss://allingas.peercoinexplorer.net:50004',
       ],
-      marismaServers: [
-        ('marisma.ppc.lol', 8443),
-      ],
+      marismaServers: [],
     ),
     'peercoinTestnet': Coin(
       name: 'peercoinTestnet',
@@ -60,9 +58,7 @@ class AvailableCoins {
         'wss://testnet-electrum.peercoinexplorer.net:50009',
         'wss://allingas.peercoinexplorer.net:50009',
       ],
-      marismaServers: [
-        ('test-marisma.ppc.lol', 2096),
-      ],
+      marismaServers: [],
     ),
     'nusacoin': Coin(
       name: 'nusacoin',

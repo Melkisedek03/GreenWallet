@@ -1,7 +1,7 @@
 import 'package:coinlib_flutter/coinlib_flutter.dart' as cl;
 import 'package:noosphere_roast_client/noosphere_roast_client.dart';
-import 'package:peercoin/models/available_coins.dart';
-import 'package:peercoin/models/marisma_utxo.dart';
+import 'package:greenwallet/models/available_coins.dart';
+import 'package:greenwallet/models/marisma_utxo.dart';
 
 Future<SignaturesRequestDetails> generateTaprootSignatureRequestDetails({
   required cl.ECCompressedPublicKey groupKey,

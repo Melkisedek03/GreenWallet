@@ -69,8 +69,10 @@ class LogoutDialog extends StatelessWidget {
     window.indexedDB.deleteDatabase('vaultbox');
     window.indexedDB.deleteDatabase('wallets');
     window.indexedDB.deleteDatabase('optionsbox');
-    window.indexedDB.deleteDatabase('serverbox-peercoin');
-    window.indexedDB.deleteDatabase('serverbox-peercointestnet');
+    window.indexedDB.deleteDatabase('serverBox-peercoin');
+    window.indexedDB.deleteDatabase('serverBox-peercoinTestnet');
+    window.indexedDB.deleteDatabase('serverBox-nusacoin');
+    window.indexedDB.deleteDatabase('serverBox-nusacoinTestnet');
     await Future.delayed(const Duration(seconds: 1));
 
     LoggerWrapper.logInfo('Logout', 'clearData', 'Hive Storage cleared');

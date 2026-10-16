@@ -1,5 +1,5 @@
-name: peercoin
-description: A new Peercoin wallet.
+name: greenwallet
+description: GreenWallet - mobile wallet for Nusacoin (NUX).
 
 version: 1.4.8+160
 environment:

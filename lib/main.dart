@@ -9,16 +9,16 @@ import 'package:frosty/frosty.dart';
 import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:peercoin/models/hive/adapters/ec_compressed_public_key_hive_adapter.dart';
-import 'package:peercoin/models/hive/adapters/ec_private_key_hive_adapter.dart';
-import 'package:peercoin/models/hive/adapters/ec_public_key_hive_adapter.dart';
-import 'package:peercoin/models/hive/adapters/final_expirable_hive_adapter.dart';
-import 'package:peercoin/models/hive/adapters/frost_key_with_details_hive_adapter.dart';
-import 'package:peercoin/models/hive/adapters/signature_nonces_hive_adapter.dart';
-import 'package:peercoin/models/hive/adapters/signature_request_id_hive_adapter.dart';
-import 'package:peercoin/models/hive/adapters/signing_nonces_hive_adapter.dart';
-import 'package:peercoin/models/hive/roast_wallet.dart';
-import 'package:peercoin/models/hive/adapters/client_config_hive_adapter.dart';
+import 'package:greenwallet/models/hive/adapters/ec_compressed_public_key_hive_adapter.dart';
+import 'package:greenwallet/models/hive/adapters/ec_private_key_hive_adapter.dart';
+import 'package:greenwallet/models/hive/adapters/ec_public_key_hive_adapter.dart';
+import 'package:greenwallet/models/hive/adapters/final_expirable_hive_adapter.dart';
+import 'package:greenwallet/models/hive/adapters/frost_key_with_details_hive_adapter.dart';
+import 'package:greenwallet/models/hive/adapters/signature_nonces_hive_adapter.dart';
+import 'package:greenwallet/models/hive/adapters/signature_request_id_hive_adapter.dart';
+import 'package:greenwallet/models/hive/adapters/signing_nonces_hive_adapter.dart';
+import 'package:greenwallet/models/hive/roast_wallet.dart';
+import 'package:greenwallet/models/hive/adapters/client_config_hive_adapter.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:theme_mode_handler/theme_mode_handler.dart';
@@ -45,7 +45,7 @@ import 'tools/app_localizations.dart';
 import 'tools/app_routes.dart';
 import 'tools/app_themes.dart';
 import 'tools/session_checker.dart';
-import 'widgets/spinning_peercoin_icon.dart';
+import 'widgets/spinning_coin_icon.dart';
 
 late bool setupFinished;
 late Widget _homeWidget;
@@ -244,7 +244,7 @@ class PeercoinApp extends StatelessWidget {
             useDefaultLoading: false,
             overlayColor: Colors.grey.withValues(alpha: 0.6),
             overlayWidget: const Center(
-              child: SpinningPeercoinIcon(),
+              child: SpinningCoinIcon(),
             ),
             child: MaterialApp(
               title: 'Peercoin',

@@ -3,15 +3,15 @@ import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:peercoin/models/available_coins.dart';
-import 'package:peercoin/providers/wallet_provider.dart';
-import 'package:peercoin/screens/wallet/wallet_sign_transaction_confirmation.dart';
-import 'package:peercoin/tools/app_localizations.dart';
-import 'package:peercoin/tools/app_routes.dart';
-import 'package:peercoin/tools/logger_wrapper.dart';
-import 'package:peercoin/widgets/buttons.dart';
-import 'package:peercoin/widgets/double_tab_to_clipboard.dart';
-import 'package:peercoin/widgets/service_container.dart';
+import 'package:greenwallet/models/available_coins.dart';
+import 'package:greenwallet/providers/wallet_provider.dart';
+import 'package:greenwallet/screens/wallet/wallet_sign_transaction_confirmation.dart';
+import 'package:greenwallet/tools/app_localizations.dart';
+import 'package:greenwallet/tools/app_routes.dart';
+import 'package:greenwallet/tools/logger_wrapper.dart';
+import 'package:greenwallet/widgets/buttons.dart';
+import 'package:greenwallet/widgets/double_tab_to_clipboard.dart';
+import 'package:greenwallet/widgets/service_container.dart';
 import 'package:provider/provider.dart';
 
 class WalletSignTransactionArguments {
@@ -308,7 +308,7 @@ class _WalletSignTransactionScreenState
           Expanded(
             child: SingleChildScrollView(
               child: Align(
-                child: PeerContainer(
+                child: AppContainer(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

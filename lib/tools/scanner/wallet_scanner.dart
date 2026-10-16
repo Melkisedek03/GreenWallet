@@ -1,6 +1,6 @@
-import 'package:peercoin/data_sources/electrum_scanner.dart';
-import 'package:peercoin/providers/wallet_provider.dart';
-import 'package:peercoin/tools/app_localizations.dart';
+import 'package:greenwallet/data_sources/electrum_scanner.dart';
+import 'package:greenwallet/providers/wallet_provider.dart';
+import 'package:greenwallet/tools/app_localizations.dart';
 
 import '../../models/wallet_scanner_stream_reply.dart';
 import '../../providers/server_provider.dart';

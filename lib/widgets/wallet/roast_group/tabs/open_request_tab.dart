@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:noosphere_roast_client/noosphere_roast_client.dart';
-import 'package:peercoin/screens/wallet/roast/roast_wallet_signature_request_confirmation.dart';
-import 'package:peercoin/tools/app_localizations.dart';
-import 'package:peercoin/tools/app_routes.dart';
+import 'package:greenwallet/screens/wallet/roast/roast_wallet_signature_request_confirmation.dart';
+import 'package:greenwallet/tools/app_localizations.dart';
+import 'package:greenwallet/tools/app_routes.dart';
 
 enum DialogType {
   accept,

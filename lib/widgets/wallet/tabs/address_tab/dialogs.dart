@@ -1,10 +1,10 @@
 import 'package:coinlib_flutter/coinlib_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:peercoin/models/hive/wallet_address.dart';
-import 'package:peercoin/providers/wallet_provider.dart';
-import 'package:peercoin/tools/app_localizations.dart';
-import 'package:peercoin/tools/validators.dart';
-import 'package:peercoin/widgets/wallet/wallet_home/wallet_home_qr.dart';
+import 'package:greenwallet/models/hive/wallet_address.dart';
+import 'package:greenwallet/providers/wallet_provider.dart';
+import 'package:greenwallet/tools/app_localizations.dart';
+import 'package:greenwallet/tools/validators.dart';
+import 'package:greenwallet/widgets/wallet/wallet_home/wallet_home_qr.dart';
 import 'package:provider/provider.dart';
 
 Future<void> addressEditDialog(

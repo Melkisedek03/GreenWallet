@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:peercoin/tools/app_localizations.dart';
-import 'package:peercoin/widgets/buttons.dart';
-import 'package:peercoin/widgets/service_container.dart';
+import 'package:greenwallet/tools/app_localizations.dart';
+import 'package:greenwallet/widgets/buttons.dart';
+import 'package:greenwallet/widgets/service_container.dart';
 
 class WalletHideBottomSheet extends StatelessWidget {
   final Function action;

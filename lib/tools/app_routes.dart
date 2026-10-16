@@ -1,13 +1,13 @@
 import 'package:flutter/widgets.dart';
-import 'package:peercoin/screens/wallet/roast/roast_wallet_add_participant.dart';
-import 'package:peercoin/screens/wallet/roast/roast_wallet_home.dart';
-import 'package:peercoin/screens/wallet/roast/roast_wallet_key_detail.dart';
-import 'package:peercoin/screens/wallet/roast/roast_wallet_signature_input_selector.dart';
-import 'package:peercoin/screens/wallet/roast/roast_wallet_signature_request_confirmation.dart';
-import 'package:peercoin/screens/wallet/transaction_confirmation.dart';
-import 'package:peercoin/screens/wallet/wallet_sign_transaction.dart';
-import 'package:peercoin/screens/wallet/wallet_sign_transaction_confirmation.dart';
-import 'package:peercoin/screens/wallet/wallet_verify_message.dart';
+import 'package:greenwallet/screens/wallet/roast/roast_wallet_add_participant.dart';
+import 'package:greenwallet/screens/wallet/roast/roast_wallet_home.dart';
+import 'package:greenwallet/screens/wallet/roast/roast_wallet_key_detail.dart';
+import 'package:greenwallet/screens/wallet/roast/roast_wallet_signature_input_selector.dart';
+import 'package:greenwallet/screens/wallet/roast/roast_wallet_signature_request_confirmation.dart';
+import 'package:greenwallet/screens/wallet/transaction_confirmation.dart';
+import 'package:greenwallet/screens/wallet/wallet_sign_transaction.dart';
+import 'package:greenwallet/screens/wallet/wallet_sign_transaction_confirmation.dart';
+import 'package:greenwallet/screens/wallet/wallet_verify_message.dart';
 
 import '../screens/auth_jail.dart';
 import '../screens/changelog.dart';

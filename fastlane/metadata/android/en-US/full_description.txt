@@ -1,14 +1,14 @@
-Send and receive Peercoin, the first Proof-of-Stake cryptocurrency, on your phone.
+Send and receive Nusacoin (NUX) on your phone.
 
 Keep your wallet seed protected. 
 This app comes with absolutely no warranty. 
 Use at own risk.
 
 Features:
-- Based on electrum protocol.
-- Send and receive peercoin.
+- Based on the Electrum protocol (electrs backend).
+- Send and receive Nusacoin.
 - Ready to transact after installation (no waiting).
-- Peercoin and Peercoin testnet wallets.
+- Nusacoin and Nusacoin testnet wallets.
 - Address book management.
 - Import paper wallets.
 - Import & export private keys (WIF).
@@ -16,4 +16,4 @@ Features:
 - Multi-language support.
 - Background notifications.
 
-Known limitations can be found in the Github repository.
+Known limitations can be found in the GitHub repository.

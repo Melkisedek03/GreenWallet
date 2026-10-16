@@ -1,7 +1,7 @@
 import 'package:coinlib_flutter/coinlib_flutter.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:peercoin/models/available_coins.dart';
-import 'package:peercoin/tools/validators.dart';
+import 'package:greenwallet/models/available_coins.dart';
+import 'package:greenwallet/tools/validators.dart';
 
 void main() async {
   //init coinlib

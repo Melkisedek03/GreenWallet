@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:peercoin/generated/marisma.pbgrpc.dart';
-import 'package:peercoin/models/available_coins.dart';
-import 'package:peercoin/models/marisma_utxo.dart';
-import 'package:peercoin/tools/app_localizations.dart';
-import 'package:peercoin/tools/marisma_client.dart';
-import 'package:peercoin/widgets/buttons.dart';
+import 'package:greenwallet/generated/marisma.pbgrpc.dart';
+import 'package:greenwallet/models/available_coins.dart';
+import 'package:greenwallet/models/marisma_utxo.dart';
+import 'package:greenwallet/tools/app_localizations.dart';
+import 'package:greenwallet/tools/marisma_client.dart';
+import 'package:greenwallet/widgets/buttons.dart';
 
 class ROASTWalletSignatureInputSelectorArguments {
   final String address;

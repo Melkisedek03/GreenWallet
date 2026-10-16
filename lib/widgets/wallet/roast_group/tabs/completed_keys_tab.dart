@@ -1,9 +1,9 @@
 import 'package:coinlib_flutter/coinlib_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:noosphere_roast_client/noosphere_roast_client.dart';
-import 'package:peercoin/screens/wallet/roast/roast_wallet_key_detail.dart';
-import 'package:peercoin/tools/app_localizations.dart';
-import 'package:peercoin/tools/app_routes.dart';
+import 'package:greenwallet/screens/wallet/roast/roast_wallet_key_detail.dart';
+import 'package:greenwallet/tools/app_localizations.dart';
+import 'package:greenwallet/tools/app_routes.dart';
 
 class CompletedKeysTab extends StatelessWidget {
   final Client roastClient;

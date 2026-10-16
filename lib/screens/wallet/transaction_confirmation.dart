@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:peercoin/widgets/loading_indicator.dart';
+import 'package:greenwallet/widgets/loading_indicator.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/buildresult.dart';
@@ -100,7 +100,7 @@ class _TransactionConfirmationScreenState
           Expanded(
             child: SingleChildScrollView(
               child: Align(
-                child: PeerContainer(
+                child: AppContainer(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

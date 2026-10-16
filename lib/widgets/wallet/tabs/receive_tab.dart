@@ -118,7 +118,7 @@ class _ReceiveTabState extends State<ReceiveTab> {
               ),
             ),
             Align(
-              child: PeerContainer(
+              child: AppContainer(
                 child: Form(
                   key: _formKey,
                   child: Column(

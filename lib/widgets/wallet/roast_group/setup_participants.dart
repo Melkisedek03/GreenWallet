@@ -1,21 +1,21 @@
 import 'package:coinlib_flutter/coinlib_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:noosphere_roast_client/noosphere_roast_client.dart';
-import 'package:peercoin/models/hive/coin_wallet.dart';
-import 'package:peercoin/models/hive/roast_wallet.dart';
-import 'package:peercoin/screens/wallet/roast/roast_wallet_add_participant.dart';
-import 'package:peercoin/screens/wallet/roast/roast_wallet_home.dart';
-import 'package:peercoin/tools/app_localizations.dart';
-import 'package:peercoin/tools/app_routes.dart';
-import 'package:peercoin/tools/logger_wrapper.dart';
-import 'package:peercoin/widgets/buttons.dart';
-import 'package:peercoin/widgets/service_container.dart';
-import 'package:peercoin/widgets/wallet/roast_group/setup_landing.dart';
-import 'package:peercoin/widgets/wallet/roast_group/setup_participants_finger_print_bottom_sheet.dart';
-import 'package:peercoin/widgets/wallet/roast_group/setup_participants_share_pubkey_bottom_sheet.dart';
-import 'package:peercoin/widgets/wallet/roast_group/setup_pubkey_remove_participant_bottom_sheet.dart';
-import 'package:peercoin/tools/roast/roast_group_export_config.dart';
-import 'package:peercoin/exceptions/roast_config_exceptions.dart';
+import 'package:greenwallet/models/hive/coin_wallet.dart';
+import 'package:greenwallet/models/hive/roast_wallet.dart';
+import 'package:greenwallet/screens/wallet/roast/roast_wallet_add_participant.dart';
+import 'package:greenwallet/screens/wallet/roast/roast_wallet_home.dart';
+import 'package:greenwallet/tools/app_localizations.dart';
+import 'package:greenwallet/tools/app_routes.dart';
+import 'package:greenwallet/tools/logger_wrapper.dart';
+import 'package:greenwallet/widgets/buttons.dart';
+import 'package:greenwallet/widgets/service_container.dart';
+import 'package:greenwallet/widgets/wallet/roast_group/setup_landing.dart';
+import 'package:greenwallet/widgets/wallet/roast_group/setup_participants_finger_print_bottom_sheet.dart';
+import 'package:greenwallet/widgets/wallet/roast_group/setup_participants_share_pubkey_bottom_sheet.dart';
+import 'package:greenwallet/widgets/wallet/roast_group/setup_pubkey_remove_participant_bottom_sheet.dart';
+import 'package:greenwallet/tools/roast/roast_group_export_config.dart';
+import 'package:greenwallet/exceptions/roast_config_exceptions.dart';
 
 class ROASTGroupSetupParticipants extends StatefulWidget {
   final Function changeStep;
@@ -439,7 +439,7 @@ class _ROASTGroupSetupParticipantsState
         Expanded(
           child: SingleChildScrollView(
             child: Align(
-              child: PeerContainer(
+              child: AppContainer(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [

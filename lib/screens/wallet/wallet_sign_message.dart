@@ -179,7 +179,7 @@ class _WalletMessageSigningScreenState
           Expanded(
             child: SingleChildScrollView(
               child: Align(
-                child: PeerContainer(
+                child: AppContainer(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

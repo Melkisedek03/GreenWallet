@@ -38,12 +38,12 @@ class PeerServiceTitle extends StatelessWidget {
   }
 }
 
-class PeerContainer extends StatelessWidget {
+class AppContainer extends StatelessWidget {
   final Widget child;
   final bool isTransparent;
   final bool noSpacers;
 
-  const PeerContainer({
+  const AppContainer({
     super.key,
     required this.child,
     this.isTransparent = false,

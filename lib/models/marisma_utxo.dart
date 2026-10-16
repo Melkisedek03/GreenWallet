@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:peercoin/models/available_coins.dart';
+import 'package:greenwallet/models/available_coins.dart';
 
 class UtxoFromMarisma {
   final String txid;

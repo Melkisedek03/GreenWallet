@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:mailto/mailto.dart';
-import 'package:peercoin/widgets/service_container.dart';
+import 'package:greenwallet/widgets/service_container.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../tools/app_localizations.dart';
@@ -38,14 +37,6 @@ class _AboutScreenState extends State<AboutScreen> {
         : throw 'Could not launch $url';
   }
 
-  Future<void> launchMailto() async {
-    final mailtoLink = Mailto(
-      to: ['hello@app.peercoin.net'],
-      subject: 'Peercoin Wallet',
-    );
-    await launchUrlString('$mailtoLink');
-  }
-
   @override
   Widget build(BuildContext context) {
     if (_initial) return const SizedBox();
@@ -61,7 +52,7 @@ class _AboutScreenState extends State<AboutScreen> {
           Expanded(
             child: SingleChildScrollView(
               child: Align(
-                child: PeerContainer(
+                child: AppContainer(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -77,7 +68,7 @@ class _AboutScreenState extends State<AboutScreen> {
                       ),
                       TextButton(
                         onPressed: () => _launchURL(
-                          'https://github.com/peercoin/peercoin_flutter/blob/main/LICENSE',
+                          'https://github.com/Melkisedek03/GreenWallet/blob/main/LICENSE',
                         ),
                         child: Text(
                           AppLocalizations.instance.translate(
@@ -115,7 +106,7 @@ class _AboutScreenState extends State<AboutScreen> {
                       ),
                       TextButton(
                         onPressed: () => _launchURL(
-                          'https://github.com/peercoin/peercoin_flutter',
+                          'https://github.com/Melkisedek03/GreenWallet',
                         ),
                         child: Text(
                           AppLocalizations.instance.translate(
@@ -133,7 +124,7 @@ class _AboutScreenState extends State<AboutScreen> {
                       ),
                       TextButton(
                         onPressed: () => _launchURL(
-                          'https://github.com/peercoin/peercoin_flutter/blob/main/data_protection.md',
+                          'https://github.com/Melkisedek03/GreenWallet/blob/main/data_protection.md',
                         ),
                         child: Text(
                           AppLocalizations.instance.translate(
@@ -168,10 +159,12 @@ class _AboutScreenState extends State<AboutScreen> {
                         ),
                       ),
                       TextButton(
-                        onPressed: () async => launchMailto(),
+                        onPressed: () => _launchURL(
+                          'https://github.com/Melkisedek03/GreenWallet/issues',
+                        ),
                         child: Text(
                           AppLocalizations.instance.translate(
-                            'about_send_mail',
+                            'about_open_issues',
                           ),
                           textAlign: TextAlign.center,
                         ),
