@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
@@ -7,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_logs/flutter_logs.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:peercoin/screens/wallet/roast/roast_wallet_home.dart';
-import 'package:peercoin/tools/logger_wrapper.dart';
+import 'package:greenwallet/screens/wallet/roast/roast_wallet_home.dart';
+import 'package:greenwallet/tools/logger_wrapper.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -28,7 +27,7 @@ import '../../tools/share_wrapper.dart';
 import '../../widgets/buttons.dart';
 import '../../widgets/logout_dialog_dummy.dart'
     if (dart.library.html) '../../widgets/logout_dialog.dart';
-import '../../widgets/spinning_peercoin_icon.dart';
+import '../../widgets/spinning_coin_icon.dart';
 import '../../widgets/wallet/new_wallet.dart';
 
 class WalletListScreen extends StatefulWidget {
@@ -101,7 +100,7 @@ class _WalletListScreenState extends State<WalletListScreen>
       ),
       body: _initial
           ? const Center(
-              child: SpinningPeercoinIcon(),
+              child: SpinningCoinIcon(),
             )
           : Container(
               width: double.infinity,
@@ -132,14 +131,13 @@ class _WalletListScreenState extends State<WalletListScreen>
                               if (!kIsWeb) {
                                 ShareWrapper.share(
                                   context: context,
-                                  message: Platform.isAndroid
-                                      ? 'https://play.google.com/store/apps/details?id=com.coinerella.peercoin'
-                                      : 'https://apps.apple.com/app/peercoin-wallet/id1571755170',
+                                  message:
+                                      'https://github.com/Melkisedek03/GreenWallet',
                                 );
                               }
                             },
                             child: Image.asset(
-                              'assets/icon/ppc-logo.png',
+                              'assets/icon/greenwallet-icon.png',
                             ),
                           ),
                         ),

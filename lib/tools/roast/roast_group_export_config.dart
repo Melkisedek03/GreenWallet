@@ -1,11 +1,11 @@
 import 'dart:io';
 import 'package:coinlib_flutter/coinlib_flutter.dart';
 import 'package:noosphere_roast_client/noosphere_roast_client.dart';
-import 'package:peercoin/tools/logger_wrapper.dart';
+import 'package:greenwallet/tools/logger_wrapper.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:peercoin/models/hive/roast_wallet.dart';
-import 'package:peercoin/tools/roast_config_utils.dart';
-import 'package:peercoin/exceptions/roast_config_exceptions.dart';
+import 'package:greenwallet/models/hive/roast_wallet.dart';
+import 'package:greenwallet/tools/roast_config_utils.dart';
+import 'package:greenwallet/exceptions/roast_config_exceptions.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:yaml/yaml.dart';
 

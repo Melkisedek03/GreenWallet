@@ -139,7 +139,7 @@ class _TransactionListState extends State<TransactionList> {
                 ],
               )
             : Align(
-                child: PeerContainer(
+                child: AppContainer(
                   isTransparent: true,
                   noSpacers: true,
                   child: GestureDetector(

@@ -105,7 +105,7 @@ class _ServerSettingsScreenState extends State<ServerSettingsScreen> {
         ],
       ),
       body: Align(
-        child: PeerContainer(
+        child: AppContainer(
           noSpacers: true,
           child: _servers.isEmpty
               ? const Center(child: CircularProgressIndicator())

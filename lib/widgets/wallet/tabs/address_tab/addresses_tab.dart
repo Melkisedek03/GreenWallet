@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:peercoin/widgets/wallet/tabs/address_tab/dialogs.dart';
+import 'package:greenwallet/widgets/wallet/tabs/address_tab/dialogs.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../models/available_coins.dart';

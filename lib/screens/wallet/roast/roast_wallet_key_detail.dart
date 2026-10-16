@@ -2,12 +2,12 @@ import 'package:coinlib_flutter/coinlib_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:noosphere_roast_client/noosphere_roast_client.dart';
-import 'package:peercoin/tools/app_localizations.dart';
-import 'package:peercoin/tools/roast/derive_key_to_taproot_address.dart';
-import 'package:peercoin/widgets/double_tab_to_clipboard.dart';
-import 'package:peercoin/widgets/loading_indicator.dart';
-import 'package:peercoin/widgets/service_container.dart';
-import 'package:peercoin/widgets/buttons.dart';
+import 'package:greenwallet/tools/app_localizations.dart';
+import 'package:greenwallet/tools/roast/derive_key_to_taproot_address.dart';
+import 'package:greenwallet/widgets/double_tab_to_clipboard.dart';
+import 'package:greenwallet/widgets/loading_indicator.dart';
+import 'package:greenwallet/widgets/service_container.dart';
+import 'package:greenwallet/widgets/buttons.dart';
 import 'package:share_plus/share_plus.dart';
 
 class RoastWalletDetailScrenDTO {
@@ -187,7 +187,7 @@ class _RoastWalletKeyDetailScreenState
       ),
       body: Align(
         alignment: Alignment.topCenter,
-        child: PeerContainer(
+        child: AppContainer(
           child: SingleChildScrollView(
             child: _initial
                 ? const LoadingIndicator()

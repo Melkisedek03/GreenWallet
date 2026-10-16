@@ -2,12 +2,12 @@ import 'package:coinlib_flutter/coinlib_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:noosphere_roast_client/noosphere_roast_client.dart';
-import 'package:peercoin/models/hive/roast_wallet.dart';
-import 'package:peercoin/tools/app_localizations.dart';
-import 'package:peercoin/tools/app_routes.dart';
-import 'package:peercoin/tools/logger_wrapper.dart';
-import 'package:peercoin/widgets/service_container.dart';
-import 'package:peercoin/widgets/buttons.dart';
+import 'package:greenwallet/models/hive/roast_wallet.dart';
+import 'package:greenwallet/tools/app_localizations.dart';
+import 'package:greenwallet/tools/app_routes.dart';
+import 'package:greenwallet/tools/logger_wrapper.dart';
+import 'package:greenwallet/widgets/service_container.dart';
+import 'package:greenwallet/widgets/buttons.dart';
 import 'dart:convert';
 
 class ParticpantNavigatorPopDTO {
@@ -171,7 +171,7 @@ class _ROASTWalletAddParticipantScreenState
         ],
       ),
       body: Align(
-        child: PeerContainer(
+        child: AppContainer(
           child: SingleChildScrollView(
             child: Form(
               key: _formKey,

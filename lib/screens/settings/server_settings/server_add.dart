@@ -232,7 +232,7 @@ class _ServerAddScreenState extends State<ServerAddScreen> {
         ],
       ),
       body: Align(
-        child: PeerContainer(
+        child: AppContainer(
           child: SingleChildScrollView(
             child: Form(
               key: _formKey,

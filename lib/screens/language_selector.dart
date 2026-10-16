@@ -101,7 +101,7 @@ class _LanguageSelectorScreenState extends State<LanguageSelectorScreen> {
       ),
       body: SingleChildScrollView(
         child: Align(
-          child: PeerContainer(
+          child: AppContainer(
             noSpacers: true,
             child: RadioGroup<String>(
               groupValue: widget.selectedLang,

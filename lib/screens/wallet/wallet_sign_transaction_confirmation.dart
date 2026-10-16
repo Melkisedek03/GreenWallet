@@ -1,13 +1,13 @@
 import 'dart:typed_data';
 import 'package:coinlib_flutter/coinlib_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:peercoin/providers/connection_provider.dart';
-import 'package:peercoin/screens/wallet/transaction_details.dart';
-import 'package:peercoin/tools/generic_address.dart';
-import 'package:peercoin/tools/app_localizations.dart';
-import 'package:peercoin/widgets/buttons.dart';
-import 'package:peercoin/widgets/double_tab_to_clipboard.dart';
-import 'package:peercoin/widgets/service_container.dart';
+import 'package:greenwallet/providers/connection_provider.dart';
+import 'package:greenwallet/screens/wallet/transaction_details.dart';
+import 'package:greenwallet/tools/generic_address.dart';
+import 'package:greenwallet/tools/app_localizations.dart';
+import 'package:greenwallet/widgets/buttons.dart';
+import 'package:greenwallet/widgets/double_tab_to_clipboard.dart';
+import 'package:greenwallet/widgets/service_container.dart';
 import 'package:provider/provider.dart';
 
 class WalletSignTransactionConfirmationArguments {
@@ -208,7 +208,7 @@ class WalletSignTransactionConfirmationScreen extends StatelessWidget {
           Expanded(
             child: SingleChildScrollView(
               child: Align(
-                child: PeerContainer(
+                child: AppContainer(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

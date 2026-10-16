@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:peercoin/screens/settings/settings_helpers.dart';
+import 'package:greenwallet/screens/settings/settings_helpers.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/hive/coin_wallet.dart';
@@ -95,7 +95,7 @@ class _AppSettingsDefaultWalletScreenState
       ),
       body: SingleChildScrollView(
         child: Align(
-          child: PeerContainer(
+          child: AppContainer(
             noSpacers: true,
             child: RadioGroup<String>(
               groupValue: _defaultWallet,

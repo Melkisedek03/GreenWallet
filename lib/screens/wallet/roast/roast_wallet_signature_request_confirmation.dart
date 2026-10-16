@@ -1,12 +1,12 @@
 import 'package:coinlib_flutter/coinlib_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:noosphere_roast_client/noosphere_roast_client.dart';
-import 'package:peercoin/models/available_coins.dart';
-import 'package:peercoin/tools/app_localizations.dart';
-import 'package:peercoin/tools/generic_address.dart';
-import 'package:peercoin/widgets/buttons.dart';
-import 'package:peercoin/widgets/service_container.dart';
-import 'package:peercoin/widgets/loading_indicator.dart';
+import 'package:greenwallet/models/available_coins.dart';
+import 'package:greenwallet/tools/app_localizations.dart';
+import 'package:greenwallet/tools/generic_address.dart';
+import 'package:greenwallet/widgets/buttons.dart';
+import 'package:greenwallet/widgets/service_container.dart';
+import 'package:greenwallet/widgets/loading_indicator.dart';
 import '../transaction_details.dart';
 
 class ROASTWalletSignatureRequestConfirmationScreenArguments {
@@ -217,7 +217,7 @@ class _ROASTWalletSignatureRequestConfirmationScreenState
                 ? const Center(child: CircularProgressIndicator())
                 : SingleChildScrollView(
                     child: Align(
-                      child: PeerContainer(
+                      child: AppContainer(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [

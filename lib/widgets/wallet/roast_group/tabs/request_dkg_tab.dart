@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:noosphere_roast_client/noosphere_roast_client.dart';
-import 'package:peercoin/tools/app_localizations.dart';
-import 'package:peercoin/tools/logger_wrapper.dart';
-import 'package:peercoin/widgets/buttons.dart';
-import 'package:peercoin/widgets/service_container.dart';
+import 'package:greenwallet/tools/app_localizations.dart';
+import 'package:greenwallet/tools/logger_wrapper.dart';
+import 'package:greenwallet/widgets/buttons.dart';
+import 'package:greenwallet/widgets/service_container.dart';
 
 class RequestDkgTab extends StatelessWidget {
   RequestDkgTab({
@@ -113,7 +113,7 @@ class RequestDkgTab extends StatelessWidget {
         ListView(
           children: [
             Align(
-              child: PeerContainer(
+              child: AppContainer(
                 child: Form(
                   key: _formKey,
                   child: Column(

@@ -9,11 +9,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:peercoin/exceptions/exceptions.dart';
-import 'package:peercoin/models/buildresult.dart';
-import 'package:peercoin/tools/validators.dart';
-import 'package:peercoin/widgets/wallet/tabs/send_tab_management.dart';
-import 'package:peercoin/widgets/wallet/tabs/send_tab_navigator.dart';
+import 'package:greenwallet/exceptions/exceptions.dart';
+import 'package:greenwallet/models/buildresult.dart';
+import 'package:greenwallet/tools/validators.dart';
+import 'package:greenwallet/widgets/wallet/tabs/send_tab_management.dart';
+import 'package:greenwallet/widgets/wallet/tabs/send_tab_navigator.dart';
 import 'package:provider/provider.dart';
 
 import '/../models/available_coins.dart';
@@ -104,7 +104,7 @@ class _SendTabState extends State<SendTab> {
               ),
             ),
             Align(
-              child: PeerContainer(
+              child: AppContainer(
                 child: Form(
                   key: _formKey,
                   child: Column(

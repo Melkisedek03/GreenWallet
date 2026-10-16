@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:peercoin/models/buildresult.dart';
-import 'package:peercoin/tools/validators.dart';
+import 'package:greenwallet/models/buildresult.dart';
+import 'package:greenwallet/tools/validators.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/available_coins.dart';

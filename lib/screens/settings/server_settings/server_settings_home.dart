@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:peercoin/tools/app_routes.dart';
+import 'package:greenwallet/tools/app_routes.dart';
 import 'package:provider/provider.dart';
 
 import '../../../models/hive/coin_wallet.dart';
@@ -52,7 +52,7 @@ class _AppSettingsServerHomeState extends State<AppSettingsServerHome> {
       ),
       body: SingleChildScrollView(
         child: Align(
-          child: PeerContainer(
+          child: AppContainer(
             noSpacers: true,
             child: Column(
               children: _availableWallets.isEmpty

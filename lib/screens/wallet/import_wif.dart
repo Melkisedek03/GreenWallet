@@ -175,7 +175,7 @@ class _ImportWifScreenState extends State<ImportWifScreen> {
         ),
       ),
       body: Align(
-        child: PeerContainer(
+        child: AppContainer(
           noSpacers: true,
           child: Column(
             children: [

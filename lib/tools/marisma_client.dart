@@ -1,7 +1,7 @@
 import 'package:grpc/grpc.dart';
-import 'package:peercoin/generated/marisma.pbgrpc.dart';
-import 'package:peercoin/models/available_coins.dart';
-import 'package:peercoin/tools/logger_wrapper.dart';
+import 'package:greenwallet/generated/marisma.pbgrpc.dart';
+import 'package:greenwallet/models/available_coins.dart';
+import 'package:greenwallet/tools/logger_wrapper.dart';
 
 /// Returns a MarismaClient and a function to shutdown the channel.
 /// The wallet name is used to get the specific coin's Marisma server details.

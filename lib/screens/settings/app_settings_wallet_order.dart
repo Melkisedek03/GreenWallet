@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:peercoin/providers/app_settings_provider.dart';
-import 'package:peercoin/providers/wallet_provider.dart';
-import 'package:peercoin/widgets/loading_indicator.dart';
+import 'package:greenwallet/providers/app_settings_provider.dart';
+import 'package:greenwallet/providers/wallet_provider.dart';
+import 'package:greenwallet/widgets/loading_indicator.dart';
 import 'package:provider/provider.dart';
 
 import '../../../widgets/service_container.dart';
@@ -92,7 +92,7 @@ class _AppSettingsWalletOrderScreenState
                   ),
                 )
               : Align(
-                  child: PeerContainer(
+                  child: AppContainer(
                     noSpacers: true,
                     child: ReorderableListView.builder(
                       onReorderItem: (oldIndex, newIndex) async {

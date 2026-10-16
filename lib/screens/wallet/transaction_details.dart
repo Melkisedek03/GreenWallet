@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:peercoin/providers/connection_provider.dart';
-import 'package:peercoin/widgets/double_tab_to_clipboard.dart';
+import 'package:greenwallet/providers/connection_provider.dart';
+import 'package:greenwallet/widgets/double_tab_to_clipboard.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -34,7 +34,7 @@ class TransactionDetails extends StatelessWidget {
         ),
       ),
       body: Align(
-        child: PeerContainer(
+        child: AppContainer(
           noSpacers: true,
           child: ListView(
             padding: const EdgeInsets.all(20),

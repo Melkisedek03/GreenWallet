@@ -7,13 +7,13 @@ import 'package:coinlib_flutter/coinlib_flutter.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive_ce/hive.dart';
 import 'package:mockito/mockito.dart';
-import 'package:peercoin/exceptions/exceptions.dart';
-import 'package:peercoin/models/hive/coin_wallet.dart';
-import 'package:peercoin/models/hive/wallet_address.dart';
-import 'package:peercoin/models/hive/wallet_transaction.dart';
-import 'package:peercoin/models/hive/wallet_utxo.dart';
-import 'package:peercoin/providers/wallet_provider.dart';
-import 'package:peercoin/providers/encrypted_box_provider.dart';
+import 'package:greenwallet/exceptions/exceptions.dart';
+import 'package:greenwallet/models/hive/coin_wallet.dart';
+import 'package:greenwallet/models/hive/wallet_address.dart';
+import 'package:greenwallet/models/hive/wallet_transaction.dart';
+import 'package:greenwallet/models/hive/wallet_utxo.dart';
+import 'package:greenwallet/providers/wallet_provider.dart';
+import 'package:greenwallet/providers/encrypted_box_provider.dart';
 import 'package:fast_csv/fast_csv.dart' as fast_csv;
 
 class MockHiveBox extends Mock implements EncryptedBoxProvider {

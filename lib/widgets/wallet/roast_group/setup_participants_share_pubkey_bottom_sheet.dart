@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:noosphere_roast_client/noosphere_roast_client.dart';
-import 'package:peercoin/tools/app_localizations.dart';
-import 'package:peercoin/widgets/buttons.dart';
-import 'package:peercoin/widgets/double_tab_to_clipboard.dart';
-import 'package:peercoin/widgets/service_container.dart';
+import 'package:greenwallet/tools/app_localizations.dart';
+import 'package:greenwallet/widgets/buttons.dart';
+import 'package:greenwallet/widgets/double_tab_to_clipboard.dart';
+import 'package:greenwallet/widgets/service_container.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'dart:convert';

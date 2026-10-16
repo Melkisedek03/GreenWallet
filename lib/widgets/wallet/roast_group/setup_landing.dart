@@ -1,14 +1,14 @@
 import 'package:coinlib_flutter/coinlib_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:noosphere_roast_client/noosphere_roast_client.dart';
-import 'package:peercoin/models/hive/coin_wallet.dart';
-import 'package:peercoin/models/hive/roast_wallet.dart';
-import 'package:peercoin/tools/roast/roast_group_export_config.dart';
-import 'package:peercoin/tools/app_localizations.dart';
-import 'package:peercoin/widgets/buttons.dart';
-import 'package:peercoin/widgets/service_container.dart';
-import 'package:peercoin/widgets/wallet/roast_group/setup_participants.dart';
-import 'package:peercoin/exceptions/roast_config_exceptions.dart';
+import 'package:greenwallet/models/hive/coin_wallet.dart';
+import 'package:greenwallet/models/hive/roast_wallet.dart';
+import 'package:greenwallet/tools/roast/roast_group_export_config.dart';
+import 'package:greenwallet/tools/app_localizations.dart';
+import 'package:greenwallet/widgets/buttons.dart';
+import 'package:greenwallet/widgets/service_container.dart';
+import 'package:greenwallet/widgets/wallet/roast_group/setup_participants.dart';
+import 'package:greenwallet/exceptions/roast_config_exceptions.dart';
 
 class ROASTGroupSetupLanding extends StatefulWidget {
   final ROASTWallet roastWallet;
@@ -169,7 +169,7 @@ class _ROASTGroupSetupLandingState extends State<ROASTGroupSetupLanding> {
         Expanded(
           child: SingleChildScrollView(
             child: Align(
-              child: PeerContainer(
+              child: AppContainer(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [

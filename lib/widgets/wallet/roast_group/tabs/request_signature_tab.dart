@@ -2,18 +2,18 @@ import 'package:coinlib_flutter/coinlib_flutter.dart' as cl;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:noosphere_roast_client/noosphere_roast_client.dart';
-import 'package:peercoin/generated/marisma.pbgrpc.dart';
-import 'package:peercoin/models/available_coins.dart';
-import 'package:peercoin/models/marisma_utxo.dart';
-import 'package:peercoin/screens/wallet/roast/roast_wallet_signature_input_selector.dart';
-import 'package:peercoin/tools/app_localizations.dart';
-import 'package:peercoin/tools/app_routes.dart';
-import 'package:peercoin/tools/roast/derive_key_to_taproot_address.dart';
-import 'package:peercoin/tools/roast/generate_taproot_signature_request_details.dart';
-import 'package:peercoin/tools/logger_wrapper.dart';
-import 'package:peercoin/tools/validators.dart';
-import 'package:peercoin/widgets/buttons.dart';
-import 'package:peercoin/widgets/service_container.dart';
+import 'package:greenwallet/generated/marisma.pbgrpc.dart';
+import 'package:greenwallet/models/available_coins.dart';
+import 'package:greenwallet/models/marisma_utxo.dart';
+import 'package:greenwallet/screens/wallet/roast/roast_wallet_signature_input_selector.dart';
+import 'package:greenwallet/tools/app_localizations.dart';
+import 'package:greenwallet/tools/app_routes.dart';
+import 'package:greenwallet/tools/roast/derive_key_to_taproot_address.dart';
+import 'package:greenwallet/tools/roast/generate_taproot_signature_request_details.dart';
+import 'package:greenwallet/tools/logger_wrapper.dart';
+import 'package:greenwallet/tools/validators.dart';
+import 'package:greenwallet/widgets/buttons.dart';
+import 'package:greenwallet/widgets/service_container.dart';
 
 class RequestSignatureTab extends StatefulWidget {
   const RequestSignatureTab({
@@ -234,7 +234,7 @@ class _RequestSignatureTabState extends State<RequestSignatureTab> {
         ListView(
           children: [
             Align(
-              child: PeerContainer(
+              child: AppContainer(
                 child: Form(
                   key: _formKey,
                   child: Column(

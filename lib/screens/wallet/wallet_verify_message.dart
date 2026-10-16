@@ -2,7 +2,7 @@ import 'package:coinlib_flutter/coinlib_flutter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:peercoin/tools/validators.dart';
+import 'package:greenwallet/tools/validators.dart';
 
 import '../../models/available_coins.dart';
 import '../../models/coin.dart';
@@ -125,7 +125,7 @@ class _WaleltMessagesVerificationScreenState
           Expanded(
             child: SingleChildScrollView(
               child: Align(
-                child: PeerContainer(
+                child: AppContainer(
                   child: Form(
                     key: _formKey,
                     child: Column(
