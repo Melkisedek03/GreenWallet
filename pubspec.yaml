@@ -56,6 +56,12 @@ dependencies:
   loader_overlay: ^2.1.0
   app_bar_with_search_switch: ^1.5.4
   decimal: ^2.3.3
+  bolt11_decoder:
+    git:
+      url: https://github.com/Melkisedek03/dart_bolt11_decoder.git
+      ref: master
+      # Fork of fusion44/dart_bolt11_decoder with Nusacoin HRPs
+      # (lntn testnet, lnn mainnet) added to PayRequestPrefix.
   characters: ^1.2.0
   coinlib_flutter: ^4.0.0
   frosty: ^2.0.0

@@ -11,6 +11,8 @@ import 'package:greenwallet/screens/wallet/wallet_verify_message.dart';
 
 import '../screens/auth_jail.dart';
 import '../screens/changelog.dart';
+import '../screens/lightning/lightning_home.dart';
+import '../screens/lightning/lightning_settings.dart';
 import '../screens/qrcode_scanner.dart';
 import '../screens/router_master.dart';
 import '../screens/settings/app_settings_app_theme.dart';
@@ -82,6 +84,8 @@ class Routes {
   static const String changeLog = '/changelog';
   static const String addressSelector = '/address-selector';
   static const String transactionConfirmation = '/transaction-confirmation';
+  static const String lightningHome = '/lightning-home';
+  static const String lightningSettings = '/lightning-settings';
 
   static Map<String, WidgetBuilder> getRoutes() {
     return {
@@ -136,6 +140,14 @@ class Routes {
       Routes.addressSelector: (context) => const RouterMaster(
             widget: AddressSelectorScreen(),
             routeType: RouteTypes.requiresArguments,
+          ),
+      Routes.lightningHome: (context) => const RouterMaster(
+            widget: LightningHomeScreen(),
+            routeType: RouteTypes.requiresSetupFinished,
+          ),
+      Routes.lightningSettings: (context) => const RouterMaster(
+            widget: LightningSettingsScreen(),
+            routeType: RouteTypes.requiresSetupFinished,
           ),
       Routes.importPaperWallet: (context) => const RouterMaster(
             widget: ImportPaperWalletScreen(),
