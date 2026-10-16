@@ -101,7 +101,7 @@ class _LightningReceiveTabState extends State<LightningReceiveTab> {
                 : ElevatedButton(
                     onPressed: _createInvoice,
                     child: Text(AppLocalizations.instance.translate(
-                        'lightning_receive_create_button')),
+                        'lightning_receive_create_button',),),
                   ),
             if (_error != null) ...[
               const SizedBox(height: 12),
@@ -133,15 +133,17 @@ class _LightningReceiveTabState extends State<LightningReceiveTab> {
                   if (!context.mounted) return;
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: Text(AppLocalizations.instance
-                          .translate('lightning_copied')),
-                      textAlign: TextAlign.center,
+                      content: Text(
+                        AppLocalizations.instance
+                            .translate('lightning_copied'),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                   );
                 },
                 icon: const Icon(Icons.copy_rounded),
                 label: Text(AppLocalizations.instance
-                    .translate('lightning_copy_invoice')),
+                    .translate('lightning_copy_invoice'),),
               ),
             ],
           ],

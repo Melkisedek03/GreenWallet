@@ -93,7 +93,12 @@ class _LightningSetupScreenState extends State<LightningSetupScreen> {
         _saving = false;
       });
       scaffoldMessenger.showSnackBar(
-        SnackBar(content: Text(_error!), textAlign: TextAlign.center),
+        SnackBar(
+          content: Text(
+            _error!,
+            textAlign: TextAlign.center,
+          ),
+        ),
       );
     }
   }
@@ -126,7 +131,7 @@ class _LightningSetupScreenState extends State<LightningSetupScreen> {
                 onPressed: _saving ? null : _scanQr,
                 icon: const Icon(Icons.qr_code_scanner_rounded),
                 label: Text(AppLocalizations.instance
-                    .translate('lightning_setup_scan_button')),
+                    .translate('lightning_setup_scan_button'),),
               ),
               const SizedBox(height: 16),
               TextFormField(
@@ -170,7 +175,7 @@ class _LightningSetupScreenState extends State<LightningSetupScreen> {
                   : ElevatedButton(
                       onPressed: _save,
                       child: Text(AppLocalizations.instance
-                          .translate('lightning_setup_save_button')),
+                          .translate('lightning_setup_save_button'),),
                     ),
             ],
           ),

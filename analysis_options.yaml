@@ -2,6 +2,10 @@ include: package:flutter_lints/flutter.yaml
 analyzer:
    exclude:
      - lib/generated/**
+     - build/**
+     - android/**
+     - ios/**
+     - web/**
 
 linter:
   rules:

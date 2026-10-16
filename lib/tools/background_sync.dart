@@ -376,6 +376,7 @@ class BackgroundSync {
       await socket.flush();
 
       final responseLine = await socket
+          .cast<List<int>>()
           .transform(utf8.decoder)
           .transform(const LineSplitter())
           .first

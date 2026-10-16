@@ -69,7 +69,7 @@ class _LightningHistoryTabState extends State<LightningHistoryTab> {
               ElevatedButton(
                 onPressed: _load,
                 child: Text(AppLocalizations.instance
-                    .translate('lightning_history_retry')),
+                    .translate('lightning_history_retry'),),
               ),
             ],
           ),

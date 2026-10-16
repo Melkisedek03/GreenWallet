@@ -191,9 +191,9 @@ class _LightningSendTabState extends State<LightningSendTab> {
                         padding: const EdgeInsets.only(top: 8),
                         child: Text(
                           AppLocalizations.instance.translate(
-                              'lightning_send_expired'),
+                              'lightning_send_expired',),
                           style: TextStyle(
-                              color: Theme.of(context).colorScheme.error),
+                              color: Theme.of(context).colorScheme.error,),
                         ),
                       ),
                   ],
@@ -211,7 +211,7 @@ class _LightningSendTabState extends State<LightningSendTab> {
                         ? null
                         : _pay,
                     child: Text(AppLocalizations.instance
-                        .translate('lightning_send_pay_button')),
+                        .translate('lightning_send_pay_button'),),
                   ),
             if (widget.balanceNusan != null &&
                 invoice.amountNusan > widget.balanceNusan!)
@@ -232,7 +232,7 @@ class _LightningSendTabState extends State<LightningSendTab> {
   }
 
   Widget _row(BuildContext context, String label, String value,
-      {bool emphasize = false}) {
+      {bool emphasize = false,}) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(

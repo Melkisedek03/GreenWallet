@@ -71,7 +71,7 @@ class LnbitsBackend {
         .timeout(const Duration(seconds: 15));
     if (resp.statusCode != 200 && resp.statusCode != 201) {
       throw LnbitsException(
-          'createInvoice failed: HTTP ${resp.statusCode}: ${resp.body}');
+          'createInvoice failed: HTTP ${resp.statusCode}: ${resp.body}',);
     }
     final data = jsonDecode(resp.body) as Map<String, dynamic>;
     final paymentRequest = data['payment_request'] as String?;
@@ -96,7 +96,7 @@ class LnbitsBackend {
         .timeout(const Duration(seconds: 60));
     if (resp.statusCode != 200 && resp.statusCode != 201) {
       throw LnbitsException(
-          'payInvoice failed: HTTP ${resp.statusCode}: ${resp.body}');
+          'payInvoice failed: HTTP ${resp.statusCode}: ${resp.body}',);
     }
     final data = jsonDecode(resp.body) as Map<String, dynamic>;
     return (data['checking_id'] as String?) ?? '';

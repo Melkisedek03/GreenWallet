@@ -79,9 +79,9 @@ class _LightningSettingsScreenState extends State<LightningSettingsScreen> {
       context: context,
       builder: (context) => AlertDialog(
         title: Text(AppLocalizations.instance
-            .translate('lightning_settings_remove_title')),
+            .translate('lightning_settings_remove_title'),),
         content: Text(AppLocalizations.instance
-            .translate('lightning_settings_remove_body')),
+            .translate('lightning_settings_remove_body'),),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
@@ -105,7 +105,7 @@ class _LightningSettingsScreenState extends State<LightningSettingsScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.instance
-            .translate('lightning_settings_title')),
+            .translate('lightning_settings_title'),),
       ),
       body: _initial
           ? const Center(child: LoadingIndicator())
@@ -121,7 +121,7 @@ class _LightningSettingsScreenState extends State<LightningSettingsScreen> {
                       keyboardType: TextInputType.url,
                       decoration: InputDecoration(
                         labelText: AppLocalizations.instance.translate(
-                            'lightning_settings_url_label'),
+                            'lightning_settings_url_label',),
                         hintText: 'https://lnbits.example.com',
                         border: const OutlineInputBorder(),
                       ),
@@ -134,7 +134,7 @@ class _LightningSettingsScreenState extends State<LightningSettingsScreen> {
                         if (!url.startsWith('http://') &&
                             !url.startsWith('https://')) {
                           return AppLocalizations.instance.translate(
-                              'lightning_settings_url_scheme');
+                              'lightning_settings_url_scheme',);
                         }
                         return null;
                       },
@@ -151,14 +151,14 @@ class _LightningSettingsScreenState extends State<LightningSettingsScreen> {
                         child: Row(
                           children: [
                             const Icon(Icons.warning_rounded,
-                                color: Colors.white),
+                                color: Colors.white,),
                             const SizedBox(width: 8),
                             Expanded(
                               child: Text(
                                 AppLocalizations.instance.translate(
-                                    'lightning_http_warning'),
+                                    'lightning_http_warning',),
                                 style: const TextStyle(
-                                    color: Colors.white, fontSize: 12),
+                                    color: Colors.white, fontSize: 12,),
                               ),
                             ),
                           ],
@@ -170,7 +170,7 @@ class _LightningSettingsScreenState extends State<LightningSettingsScreen> {
                       Text(
                         _error!,
                         style: TextStyle(
-                            color: Theme.of(context).colorScheme.error),
+                            color: Theme.of(context).colorScheme.error,),
                       ),
                     ],
                     const SizedBox(height: 20),
@@ -179,7 +179,7 @@ class _LightningSettingsScreenState extends State<LightningSettingsScreen> {
                         : ElevatedButton(
                             onPressed: _save,
                             child: Text(AppLocalizations.instance
-                                .translate('lightning_save')),
+                                .translate('lightning_save'),),
                           ),
                     const SizedBox(height: 32),
                     const Divider(),
@@ -188,7 +188,7 @@ class _LightningSettingsScreenState extends State<LightningSettingsScreen> {
                       onPressed: _removeWallet,
                       icon: const Icon(Icons.delete_outline_rounded),
                       label: Text(AppLocalizations.instance.translate(
-                          'lightning_settings_remove_button')),
+                          'lightning_settings_remove_button',),),
                       style: OutlinedButton.styleFrom(
                         foregroundColor:
                             Theme.of(context).colorScheme.error,
