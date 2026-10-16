@@ -206,9 +206,13 @@ class _WalletListScreenState extends State<WalletListScreen>
                                 ? MediaQuery.of(context).size.width / 2
                                 : MediaQuery.of(context).size.width,
                             child: ListView.builder(
-                              itemCount: _activeWalletsOrdered.length,
+                              itemCount: _activeWalletsOrdered.length + 1,
                               itemBuilder: (ctx, i) {
-                                CoinWallet wallet = _activeWalletsOrdered[i];
+                                if (i == 0) {
+                                  return _lightningCard(context);
+                                }
+                                CoinWallet wallet =
+                                    _activeWalletsOrdered[i - 1];
                                 String balance = (wallet.balance /
                                         AvailableCoins.getDecimalProduct(
                                           identifier: wallet.name,
@@ -615,5 +619,56 @@ class _WalletListScreenState extends State<WalletListScreen>
       await navigator.pushNamed(Routes.changeLog);
       _appSettings.setBuildIdentifier(packageInfo.buildNumber);
     }
+  }
+
+  /// Entry point to the Lightning (LNbits) wallet, shown above the on-chain
+  /// wallet cards.
+  Widget _lightningCard(BuildContext context) {
+    return Card(
+      elevation: 0,
+      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+      color: Theme.of(context).colorScheme.surface,
+      child: InkWell(
+        onTap: () async {
+          await Navigator.of(context).pushNamed(Routes.lightningHome);
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Row(
+            children: [
+              Icon(
+                Icons.bolt_rounded,
+                size: 36,
+                color: Theme.of(context).primaryColor,
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      AppLocalizations.instance
+                          .translate('lightning_title'),
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      AppLocalizations.instance
+                          .translate('lightning_list_subtitle'),
+                      style: TextStyle(
+                        color: Theme.of(context).disabledColor,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const Icon(Icons.chevron_right_rounded),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
