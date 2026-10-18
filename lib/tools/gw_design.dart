@@ -173,6 +173,85 @@ abstract class GwDesign {
       );
 
   // ------------------------------------------------------------------
+  // Fase B: Send / Receive screens (from the send mockup)
+  // ------------------------------------------------------------------
+
+  /// Section labels on the send screen ("Recipient", "Amount", ...).
+  static TextStyle get sendSectionLabel => const TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.w600,
+        color: Color(0xFF2FBF8F),
+      );
+
+  /// Large amount input text on the send screen.
+  static TextStyle get sendAmountBig => const TextStyle(
+        fontSize: 44,
+        fontWeight: FontWeight.w800,
+        color: Colors.white,
+        letterSpacing: -0.5,
+      );
+
+  /// "NUX" unit next to the big amount.
+  static TextStyle get sendAmountUnit => const TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.w700,
+        color: Color(0xFF2FBF8F),
+      );
+
+  /// Secondary hint text under the amount ("Available: ...").
+  static TextStyle get sendHint => const TextStyle(
+        fontSize: 14,
+        fontWeight: FontWeight.w400,
+        color: Color(0xFF8AA39A),
+      );
+
+  /// Input field fill on the send screen.
+  static Color get sendInputFill => const Color(0xFF0A3A2C);
+
+  /// Input field border on the send screen.
+  static Color get sendInputBorder => const Color(0xFF1E6B4F);
+
+  /// Inactive fee pill fill.
+  static Color get feePillInactiveFill => const Color(0xFF2A2F2D);
+
+  /// Inactive fee pill text.
+  static Color get feePillInactiveText => const Color(0xFF8AA39A);
+
+  /// Active fee pill fill (mint).
+  static Color get feePillActiveFill => const Color(0xFF2FBF8F);
+
+  /// Active fee pill text (dark).
+  static Color get feePillActiveText => const Color(0xFF062A20);
+
+  /// Summary card background on the send screen.
+  static Color get sendSummaryFill => const Color(0xFF0A3A2C);
+
+  /// "Total" value color in the summary card.
+  static Color get sendTotalValue => const Color(0xFF2FBF8F);
+
+  /// Gradient for the primary send button (mint, like the mockup).
+  static const LinearGradient sendButtonGradient = LinearGradient(
+    begin: Alignment.centerLeft,
+    end: Alignment.centerRight,
+    colors: [
+      Color(0xFF0E7A55),
+      Color(0xFF2FBF8F),
+    ],
+  );
+
+  /// Receive screen: address card fill.
+  static Color get receiveCardFill => const Color(0xFF0A3A2C);
+
+  /// Receive screen: address card border.
+  static Color get receiveCardBorder => const Color(0xFF2FBF8F);
+
+  /// Fee tier targets for blockchain.estimatefee, in blocks.
+  /// Slow = cheap (more blocks), Normal = default, Fast = expensive.
+  static const int feeBlocksSlow = 24;
+  static const int feeBlocksNormal = 6;
+  static const int feeBlocksFast = 2;
+
+  // ------------------------------------------------------------------
   // Helpers
   // ------------------------------------------------------------------
 
