@@ -11,6 +11,7 @@ import 'package:greenwallet/screens/wallet/wallet_verify_message.dart';
 
 import '../screens/auth_jail.dart';
 import '../screens/changelog.dart';
+import '../screens/dashboard/dashboard_screen.dart';
 import '../screens/lightning/lightning_home.dart';
 import '../screens/lightning/lightning_settings.dart';
 import '../screens/qrcode_scanner.dart';
@@ -43,6 +44,7 @@ import '../screens/wallet/wallet_sign_message.dart';
 class Routes {
   // Route name constants
   static const String walletList = '/wallet-list';
+  static const String dashboard = '/dashboard';
   static const String appSettings = '/app-settings';
   static const String appSettingsNotifications = '/app-settings-notifications';
   static const String appSettingsLanguage = '/app-settings-language';
@@ -103,6 +105,10 @@ class Routes {
           ),
       Routes.walletList: (context) => const RouterMaster(
             widget: WalletListScreen(),
+            routeType: RouteTypes.requiresSetupFinished,
+          ),
+      Routes.dashboard: (context) => const RouterMaster(
+            widget: DashboardScreen(),
             routeType: RouteTypes.requiresSetupFinished,
           ),
       Routes.standardAndWatchOnlyWalletHome: (context) => const RouterMaster(
