@@ -14,6 +14,7 @@ import '../../tools/app_routes.dart';
 import '../../tools/background_sync.dart';
 import '../../tools/gw_design.dart';
 import '../../tools/price_ticker.dart';
+import 'markets_screen.dart';
 
 /// Fase A dashboard: mockup-style home screen.
 ///
@@ -118,6 +119,18 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   CoinWallet? get _activeWallet => _wallets.isNotEmpty ? _wallets.first : null;
+
+  /// Format IDR without decimals and with thousand separators.
+  String _formatIdr(double value) {
+    final intVal = value.round();
+    final str = intVal.toString();
+    final buffer = StringBuffer();
+    for (int i = 0; i < str.length; i++) {
+      if (i > 0 && (str.length - i) % 3 == 0) buffer.write('.');
+      buffer.write(str[i]);
+    }
+    return buffer.toString();
+  }
 
   String _greeting() {
     final hour = DateTime.now().hour;
@@ -281,10 +294,28 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   Widget _buildHeroCard(CoinWallet wallet) {
     final t = AppLocalizations.instance.translate;
+    final coin = AvailableCoins.getSpecificCoin(wallet.name);
     final balance = GwDesign.formatBalance(
       wallet.balance,
-      AvailableCoins.getSpecificCoin(wallet.name).fractions,
+      coin.fractions,
     );
+    // Fiat conversion via PriceTicker (Qutrade feed + USD/IDR rate).
+    // Shows USD and IDR side by side for the community.
+    final nuxAmount =
+        wallet.balance / AvailableCoins.getDecimalProduct(identifier: wallet.name);
+    final usdValue = PriceTicker.renderPrice(
+      nuxAmount,
+      'USD',
+      wallet.letterCode,
+      _appSettings.exchangeRates,
+    );
+    final idrValue = PriceTicker.renderPrice(
+      nuxAmount,
+      'IDR',
+      wallet.letterCode,
+      _appSettings.exchangeRates,
+    );
+    final showFiat = usdValue > 0;
 
     return Container(
       width: double.infinity,
@@ -337,7 +368,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
               ],
             ),
           ),
-          // Note: no fiat conversion — PriceTicker has no NUX feed yet.
+          if (showFiat) ...[
+            const SizedBox(height: 4),
+            Text(
+              '≈ \$${usdValue.toStringAsFixed(2)} USD'
+              '${idrValue > 0 ? '  •  Rp${_formatIdr(idrValue)}' : ''}',
+              style: GwDesign.heroFiat,
+            ),
+          ],
         ],
       ),
     );
@@ -559,7 +597,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
             icon: Icons.bar_chart_rounded,
             label: t('dashboard_nav_markets'),
             active: false,
-            onTap: _comingSoon,
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => const MarketsScreen(),
+                ),
+              );
+            },
           ),
           _buildNavItem(
             icon: Icons.history_rounded,

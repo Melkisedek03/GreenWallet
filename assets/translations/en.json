@@ -802,5 +802,15 @@
   "dashboard_nav_home": "Home",
   "dashboard_nav_markets": "Markets",
   "dashboard_nav_history": "History",
-  "dashboard_nav_profile": "Profile"
+  "dashboard_nav_profile": "Profile",
+  "markets_volume_24h": "24h Volume",
+  "markets_volume_usd": "24h Volume (USD)",
+  "markets_bid": "Bid",
+  "markets_ask": "Ask",
+  "markets_spread": "Spread",
+  "markets_last_updated": "Updated",
+  "markets_load_failed": "Could not load market data. Check your connection and try again.",
+  "markets_refresh_failed": "Could not refresh market data.",
+  "markets_retry": "Retry",
+  "markets_disclaimer": "Prices from Qutrade public API. Not financial advice."
 }

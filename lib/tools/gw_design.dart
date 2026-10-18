@@ -113,6 +113,12 @@ abstract class GwDesign {
         color: Colors.white,
       );
 
+  static TextStyle get heroFiat => const TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.w500,
+        color: Color(0xFF8AA39A),
+      );
+
   static TextStyle get actionLabel => const TextStyle(
         fontSize: 14,
         fontWeight: FontWeight.w500,

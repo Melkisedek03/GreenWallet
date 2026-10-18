@@ -415,5 +415,15 @@
   "dashboard_nav_home": "Beranda",
   "dashboard_nav_markets": "Pasar",
   "dashboard_nav_history": "Riwayat",
-  "dashboard_nav_profile": "Profil"
+  "dashboard_nav_profile": "Profil",
+  "markets_volume_24h": "Volume 24j",
+  "markets_volume_usd": "Volume 24j (USD)",
+  "markets_bid": "Bid",
+  "markets_ask": "Ask",
+  "markets_spread": "Spread",
+  "markets_last_updated": "Diperbarui",
+  "markets_load_failed": "Gagal memuat data pasar. Periksa koneksi dan coba lagi.",
+  "markets_refresh_failed": "Gagal memperbarui data pasar.",
+  "markets_retry": "Coba lagi",
+  "markets_disclaimer": "Harga dari API publik Qutrade. Bukan nasihat finansial."
 }
