@@ -56,6 +56,15 @@ abstract class GwDesign {
   /// Positive (received) amount color.
   static Color get positive => const Color(0xFF2FBF8F);
 
+  /// Mint accent (alias for positive, used across Fase C screens).
+  static Color get mintAccent => const Color(0xFF2FBF8F);
+
+  /// Card background fill.
+  static Color get cardBackground => const Color(0xFF0A3A2C);
+
+  /// Muted text color.
+  static Color get mutedText => const Color(0xFF8AA39A);
+
   /// "Coming soon" / info pill background.
   static Color get pillBackground => const Color(0xFF0E4A36);
 
@@ -74,6 +83,7 @@ abstract class GwDesign {
   // ------------------------------------------------------------------
 
   static const double spacingPage = 20.0;
+  static const double spacingScreen = 20.0;
   static const double spacingSection = 24.0;
   static const double spacingCard = 16.0;
 
@@ -169,6 +179,36 @@ abstract class GwDesign {
 
   static TextStyle get emptyState => const TextStyle(
         fontSize: 14,
+        fontWeight: FontWeight.w400,
+        color: Color(0xFF8AA39A),
+      );
+
+  static TextStyle get appBarTitle => const TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.w700,
+        color: Colors.white,
+      );
+
+  static TextStyle get menuLabel => const TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.w500,
+        color: Color(0xFFEAF4EF),
+      );
+
+  static TextStyle get sectionLabel => const TextStyle(
+        fontSize: 14,
+        fontWeight: FontWeight.w600,
+        color: Color(0xFF2FBF8F),
+      );
+
+  static TextStyle get bodyText => const TextStyle(
+        fontSize: 14,
+        fontWeight: FontWeight.w400,
+        color: Color(0xFFEAF4EF),
+      );
+
+  static TextStyle get mutedSmall => const TextStyle(
+        fontSize: 12,
         fontWeight: FontWeight.w400,
         color: Color(0xFF8AA39A),
       );

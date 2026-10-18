@@ -12,6 +12,10 @@ import 'package:greenwallet/screens/wallet/wallet_verify_message.dart';
 import '../screens/auth_jail.dart';
 import '../screens/changelog.dart';
 import '../screens/dashboard/dashboard_screen.dart';
+import '../screens/dashboard/exchange_api_screen.dart';
+import '../screens/dashboard/history_screen.dart';
+import '../screens/dashboard/markets_screen.dart';
+import '../screens/dashboard/profile_screen.dart';
 import '../screens/lightning/lightning_home.dart';
 import '../screens/lightning/lightning_settings.dart';
 import '../screens/qrcode_scanner.dart';
@@ -45,6 +49,10 @@ class Routes {
   // Route name constants
   static const String walletList = '/wallet-list';
   static const String dashboard = '/dashboard';
+  static const String history = '/history';
+  static const String markets = '/markets';
+  static const String profile = '/profile';
+  static const String exchangeApi = '/exchange-api';
   static const String appSettings = '/app-settings';
   static const String appSettingsNotifications = '/app-settings-notifications';
   static const String appSettingsLanguage = '/app-settings-language';
@@ -109,6 +117,22 @@ class Routes {
           ),
       Routes.dashboard: (context) => const RouterMaster(
             widget: DashboardScreen(),
+            routeType: RouteTypes.requiresSetupFinished,
+          ),
+      Routes.history: (context) => const RouterMaster(
+            widget: HistoryScreen(),
+            routeType: RouteTypes.requiresSetupFinished,
+          ),
+      Routes.markets: (context) => const RouterMaster(
+            widget: MarketsScreen(),
+            routeType: RouteTypes.requiresSetupFinished,
+          ),
+      Routes.profile: (context) => const RouterMaster(
+            widget: ProfileScreen(),
+            routeType: RouteTypes.requiresSetupFinished,
+          ),
+      Routes.exchangeApi: (context) => const RouterMaster(
+            widget: ExchangeApiScreen(),
             routeType: RouteTypes.requiresSetupFinished,
           ),
       Routes.standardAndWatchOnlyWalletHome: (context) => const RouterMaster(
