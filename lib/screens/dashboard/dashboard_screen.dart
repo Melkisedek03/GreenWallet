@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -9,7 +11,9 @@ import '../../providers/app_settings_provider.dart';
 import '../../providers/wallet_provider.dart';
 import '../../tools/app_localizations.dart';
 import '../../tools/app_routes.dart';
+import '../../tools/background_sync.dart';
 import '../../tools/gw_design.dart';
+import '../../tools/price_ticker.dart';
 
 /// Fase A dashboard: mockup-style home screen.
 ///
@@ -32,43 +36,85 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen> {
   bool _initial = true;
   List<CoinWallet> _wallets = [];
+  late AppSettingsProvider _appSettings;
+  late WalletProvider _walletProvider;
+  Timer? _priceTimer;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (_initial) {
       _initial = false;
-      final walletProvider =
-          Provider.of<WalletProvider>(context, listen: false);
-      final appSettings =
-          Provider.of<AppSettingsProvider>(context, listen: false);
-      final values = walletProvider.availableWalletValues.toList();
-      final order = appSettings.walletOrder;
-      values.sort(
-        (a, b) => order.indexOf(a.name).compareTo(order.indexOf(b.name)),
+      _initApp();
+    }
+  }
+
+  /// App startup initialization, moved from WalletListScreen (which was the
+  /// previous home). Runs once when the dashboard — now the home screen —
+  /// is first built.
+  Future<void> _initApp() async {
+    _appSettings = Provider.of<AppSettingsProvider>(context, listen: false);
+    _walletProvider = Provider.of<WalletProvider>(context, listen: false);
+    try {
+      await _appSettings.init();
+      await _walletProvider.init();
+    } catch (e) {
+      // Initialization errors are non-fatal for the dashboard shell;
+      // wallet rows will simply show empty until providers recover.
+      debugPrint('Dashboard init error: $e');
+    }
+
+    // Background sync for notifications (was in WalletListScreen).
+    if (_appSettings.notificationInterval > 0) {
+      await BackgroundSync.init(
+        notificationInterval: _appSettings.notificationInterval,
       );
-      final wallets = values.where((w) => !w.hidden).toList();
-      setState(() {
-        _wallets = wallets;
-      });
-      // Handle cold-start from a notification payload: open the wallet
-      // directly, preserving the old WalletListScreen behavior.
-      if (widget.walletToOpenDirectly.isNotEmpty) {
-        final target = wallets.firstWhereOrNull(
-          (w) => w.name == widget.walletToOpenDirectly,
-        );
-        if (target != null) {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            if (!mounted) return;
-            Navigator.pushNamed(
-              context,
-              Routes.standardAndWatchOnlyWalletHome,
-              arguments: {'wallet': target},
-            );
-          });
-        }
+    }
+
+    // Price ticker refresh timer (was in WalletListScreen).
+    if (_appSettings.selectedCurrency.isNotEmpty) {
+      PriceTicker.checkUpdate(_appSettings);
+      _priceTimer = Timer.periodic(
+        const Duration(hours: 1),
+        (_) {
+          PriceTicker.checkUpdate(_appSettings);
+        },
+      );
+    }
+
+    if (!mounted) return;
+    final values = _walletProvider.availableWalletValues.toList();
+    final order = _appSettings.walletOrder;
+    values.sort(
+      (a, b) => order.indexOf(a.name).compareTo(order.indexOf(b.name)),
+    );
+    final wallets = values.where((w) => !w.hidden).toList();
+    setState(() {
+      _wallets = wallets;
+    });
+    // Handle cold-start from a notification payload: open the wallet
+    // directly, preserving the old WalletListScreen behavior.
+    if (widget.walletToOpenDirectly.isNotEmpty) {
+      final target = wallets.firstWhereOrNull(
+        (w) => w.name == widget.walletToOpenDirectly,
+      );
+      if (target != null) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (!mounted) return;
+          Navigator.pushNamed(
+            context,
+            Routes.standardAndWatchOnlyWalletHome,
+            arguments: {'wallet': target},
+          );
+        });
       }
     }
+  }
+
+  @override
+  void dispose() {
+    _priceTimer?.cancel();
+    super.dispose();
   }
 
   CoinWallet? get _activeWallet => _wallets.isNotEmpty ? _wallets.first : null;
