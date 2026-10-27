@@ -214,7 +214,14 @@ class _WalletHomeState extends State<StandardAndWatchOnlyWalletHomeScreen>
       context.loaderOverlay.hide();
     }
 
-    if (arguments.containsKey('pushedAddress')) {
+    if (arguments.containsKey('initialTab')) {
+      // Deep-link from the dashboard quick actions.
+      final tab = WalletTab.values.firstWhere(
+        (t) => t.name == arguments['initialTab'],
+        orElse: () => WalletTab.transactions,
+      );
+      changeTab(tab);
+    } else if (arguments.containsKey('pushedAddress')) {
       changeTab(WalletTab.send, arguments['pushedAddress']);
     }
 

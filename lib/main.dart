@@ -40,7 +40,7 @@ import 'providers/wallet_provider.dart';
 import 'providers/connection_provider.dart';
 import 'providers/encrypted_box_provider.dart';
 import 'screens/setup/setup_landing.dart';
-import 'screens/wallet/wallet_list.dart';
+import 'screens/dashboard/dashboard_screen.dart';
 import 'tools/app_localizations.dart';
 import 'tools/app_routes.dart';
 import 'tools/app_themes.dart';
@@ -166,8 +166,9 @@ void main() async {
         jailedFromHome: true,
       );
     } else {
-      _homeWidget = WalletListScreen(
-        fromColdStart: true,
+      // Fase A redesign: dashboard is the default home. WalletListScreen
+      // remains accessible via the wallet switcher pill on the dashboard.
+      _homeWidget = DashboardScreen(
         walletToOpenDirectly:
             notificationAppLaunchDetails?.notificationResponse?.payload ?? '',
       );
