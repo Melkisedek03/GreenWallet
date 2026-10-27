@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-label="Green leaf N app icon">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#064c3d"/>
+      <stop offset="1" stop-color="#012e29"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="38%" r="70%">
+      <stop offset="0" stop-color="#16836a" stop-opacity=".34"/>
+      <stop offset="1" stop-color="#16836a" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="leafLeft" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#b7f27b"/>
+      <stop offset=".52" stop-color="#54d17a"/>
+      <stop offset="1" stop-color="#159b69"/>
+    </linearGradient>
+    <linearGradient id="leafDiag" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#9bea72"/>
+      <stop offset=".5" stop-color="#35c978"/>
+      <stop offset="1" stop-color="#0b9564"/>
+    </linearGradient>
+    <linearGradient id="leafRight" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#c2f584"/>
+      <stop offset=".54" stop-color="#64d87a"/>
+      <stop offset="1" stop-color="#20a66d"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#001c19" flood-opacity=".4"/>
+    </filter>
+  </defs>
+  <rect width="96" height="96" rx="22" fill="url(#bg)"/>
+  <rect width="96" height="96" rx="22" fill="url(#glow)"/>
+  <g filter="url(#shadow)">
+    <path d="M29.5 75C17.4 59.7 19.1 39.9 31.3 23.5C43.9 40 42.8 59.7 29.5 75Z" fill="url(#leafLeft)"/>
+    <path d="M34 28C50.4 31.5 67.6 49.1 68.1 71.7C50.5 67.9 34.2 50.6 34 28Z" fill="url(#leafDiag)"/>
+    <path d="M69.5 75C57.2 59.6 58.2 39.8 70.7 23.5C83 40 81.9 59.8 69.5 75Z" fill="url(#leafRight)"/>
+  </g>
+  <g fill="none" stroke="#e0ffc0" stroke-linecap="round" stroke-opacity=".45">
+    <path d="M30 70C31 55 31 40 31.3 28" stroke-width="1.2"/>
+    <path d="M37 32C47.2 42.1 57.1 54.4 65.2 68" stroke-width="1.2"/>
+    <path d="M70 70C70.3 55 70.5 40 70.7 28" stroke-width="1.2"/>
+  </g>
+</svg>
